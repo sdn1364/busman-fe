@@ -1,6 +1,8 @@
 import {createBrowserRouter} from "react-router-dom";
 import PrivateLayout from "@/components/layout/private/PrivateLayout.tsx";
 import PublicLayout from "@/components/layout/public/PublicLayout.tsx";
+import Login from "@/routes/public/Login.tsx";
+import SignUp from "@/routes/public/Signup.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -18,11 +20,11 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: '/login',
-                        element: <div>this is login</div>
+                        element: <Login/>
                     },
                     {
-                        path: '/register',
-                        element: <div>this is register</div>
+                        path: '/signup',
+                        element: <SignUp/>
                     }
                 ]
             },

@@ -1,33 +1,58 @@
-import {createContext, PropsWithChildren, useState} from 'react';
+import {createContext, PropsWithChildren} from 'react';
+import useLogin from "@/hooks/auth/use-login.ts";
 
-interface IAuthContext {
-    user: User;
-    login: ()=>void
-    signup: ()=>void
+type UserLoginData = {
+    email: string
+    password: string
+}
+
+export interface IAuthContext {
+    login: (data: UserLoginData) => void
+    signup: () => void
     logout: () => void
 }
 
+export interface IUserContext {
+    user: User
+}
 
 export const AuthContext = createContext<IAuthContext>({
-    user: {},
-    login: ()=>{},
-    signup: ()=>{},
-    logout: ()=>{}
+    login: () => {
+    },
+    signup: () => {
+    },
+    logout: () => {
+    }
 })
 
-const AuthContextProvider = ({children}: PropsWithChildren) => {
-    const [user, setUser] = useState<User>(null)
+export const UserContext = createContext<IUserContext>({
+    user: {
+        email: '',
+        name: '',
+        lastName: ''
+    }
+})
 
-    const signin = (email, password)=>{}
+const AuthProvider = ({children}: PropsWithChildren) => {
 
-    const signout = ()=>{}
+    const mutation = useLogin()
+
+    const login = (data: UserLoginData) => {
+        mutation.mutate(data)
+    }
+
+    const logout = () => {
+    }
+    const signup = () => {
+    }
 
     return <AuthContext.Provider value={{
-        user,
-        signin,
-        signout
+        login,
+        signup,
+        logout
     }}>
         {children}
     </AuthContext.Provider>
 }
-export default AuthContextProvider;
+
+export default AuthProvider;
