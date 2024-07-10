@@ -18,9 +18,8 @@ export const AuthContext = createContext<IAuthContext>({
 const AuthContextProvider = ({children}: PropsWithChildren) => {
     const [user, setUser] = useState<User>(null)
 
-    const signin = (email, password)=>{
+    const signin = (email, password)=>{}
 
-    }
     const signout = ()=>{}
 
     return <AuthContext.Provider value={{
