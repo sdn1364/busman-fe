@@ -1,21 +1,19 @@
-import {RouterProvider} from "react-router-dom";
-import {router} from "@/router.tsx";
-import {ThemeProvider} from "@/components/context/theme-provider.tsx";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import AuthProvider from "@/components/context/AuthContext.tsx";
-
-const queryClient = new QueryClient()
+import { Route, Routes } from "react-router-dom";
+import Login from "@/routes/public/Login.tsx";
+import { PathConstants } from "@/PathConstants.ts";
+import Dashboard from "@/routes/Dashboard.tsx";
+import SignUp from "./routes/public/Signup";
 
 function App() {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-                <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-                    <RouterProvider router={router}/>
-                </ThemeProvider>
-            </AuthProvider>
-        </QueryClientProvider>
-    )
+  return (
+    <Routes>
+      {/*public paths*/}
+      <Route path={PathConstants.LOGIN} element={<Login />} />
+      <Route path={PathConstants.REGISTER} element={<SignUp />} />
+      {/*private paths*/}
+      <Route path={PathConstants.DASHBOARD} element={<Dashboard />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

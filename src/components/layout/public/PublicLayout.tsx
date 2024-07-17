@@ -1,11 +1,11 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const PublicLayout = () => {
-    return (
-        <div className='w-screen'>
-            <Outlet/>
-        </div>
-    );
+  return (
+    <div className="w-screen">
+      <Outlet />
+    </div>
+  );
 };
 
 export default PublicLayout;

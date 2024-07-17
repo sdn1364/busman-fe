@@ -1,27 +1,35 @@
-import {useMutation} from "@tanstack/react-query";
-import {client} from "@/api/apiService.ts";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/api/axios";
 import useLocalStorage from "@/hooks/use-local-storage.ts";
-
-
-type UserLoginData = {
-    email: string
-    password: string
-}
+import { useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/auth/use-auth.ts";
 
 const useLogin = () => {
+  const [setAccessToken] = useLocalStorage("access-token");
+  const [setRefreshToken] = useLocalStorage("refresh-token");
 
-    const [setAccessToken] = useLocalStorage('access-token')
-    const [setRefreshToken] = useLocalStorage('refresh-token')
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
 
-    return useMutation({
-        mutationFn: async (data: UserLoginData) => await client.post('/auth/signin', {
-            username: data.email,
-            password: data.password
-        }).then(res => res),
-        onSuccess: (res) => {
-            setAccessToken(res.data.accessToken)
-            setRefreshToken(res.data.refreshToken)
-        }
-    })
-}
-export default useLogin
+  const mutation = useMutation({
+    mutationFn: async (data: UserLoginData) =>
+      await axios.post("/auth/login", {
+        email: data.email,
+        password: data.password,
+      }),
+    onSuccess: (res) => {
+      console.log(res.data);
+      setAccessToken(res.data.accessToken);
+      setRefreshToken(res.data.refreshToken);
+      setToken(res.data.accessToken);
+      return navigate("/");
+    },
+    onError: (err) => console.log(err.message),
+  });
+
+  return {
+    ...mutation,
+  };
+};
+
+export default useLogin;
