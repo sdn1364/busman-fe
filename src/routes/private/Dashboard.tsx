@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button.tsx";
 import useRefreshToken from "@/hooks/auth/use-refresh-token.ts";
 import { useEffect } from "react";
 import useAxiosPrivate from "@/hooks/auth/use-private-axios";
-import WithAuth from "./private/WithAuth";
+import WithAuth from "../WithAuth";
 
 const Dashboard = WithAuth(() => {
   const refresh = useRefreshToken();

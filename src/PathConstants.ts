@@ -5,4 +5,6 @@ export const PathConstants = {
   DASHBOARD: "/",
   TERMS: "/terms",
   PRIVACY: "/privacy",
+  SETTINGS: "/settings",
+  BUSINESS: "business",
 };
