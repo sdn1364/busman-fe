@@ -5,5 +5,5 @@ type TokenData = {
 
 interface IAuthContext {
   setToken: React.Dispatch<SetStateAction<string>>;
-  token: string;
+  token: string | null;
 }
