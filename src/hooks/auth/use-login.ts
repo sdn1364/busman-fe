@@ -18,7 +18,6 @@ const useLogin = () => {
         password: data.password,
       }),
     onSuccess: (res) => {
-      console.log(res.data);
       setAccessToken(res.data.accessToken);
       setRefreshToken(res.data.refreshToken);
       setToken(res.data.accessToken);
