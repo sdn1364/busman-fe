@@ -1,6 +1,6 @@
-import axios from "@/api/axios";
 import useAuth from "@/hooks/auth/use-auth.ts";
 import useLocalStorage from "../use-local-storage";
+import { getRefreshToken } from "@/api/services/auth";
 
 const UseRefreshToken = () => {
   const { setToken } = useAuth();
@@ -10,17 +10,7 @@ const UseRefreshToken = () => {
   return async () => {
     const refreshToken = localStorage.getItem("refresh-token");
     if (refreshToken) {
-      await axios
-        .post(
-          "/auth/refresh",
-          {},
-          {
-            headers: {
-              "content-type": "application/json",
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          },
-        )
+      await getRefreshToken(refreshToken)
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);

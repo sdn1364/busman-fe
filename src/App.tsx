@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "@/routes/public/Login.tsx";
 import { PathConstants } from "@/PathConstants.ts";
-import Dashboard from "@/routes/private/Dashboard.tsx";
+import Dashboard from "@/routes/private/dashboard/Dashboard";
 import SignUp from "./routes/public/Signup";
-import PrivateLayout from "./components/layout/private/PrivateLayout";
-import BusinessSetting from "./routes/private/BusinessSettings";
+import BusinessSetting from "./routes/private/settings/businessSettings/BusinessSettings";
+import PrivateLayout from "./components/layout/private/privateLayout/PrivateLayout";
 
 function App() {
   return (

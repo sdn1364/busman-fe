@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import useLogin from "@/hooks/auth/use-login.ts";
-import LogoGreen from "@/assets/logo_green.svg";
+import LogoGreen from "@/assets/logo_color.svg";
 import Divider from "@/components/ui/Divider.tsx";
 import { PathConstants } from "@/PathConstants";
 

@@ -1,26 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/api/axios";
 import useLocalStorage from "@/hooks/use-local-storage.ts";
 import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/auth/use-auth.ts";
+import { login } from "@/api/services/auth";
 
 const useLogin = () => {
   const [setAccessToken] = useLocalStorage("access-token");
-  const [setRefreshToken] = useLocalStorage("refresh-token");
 
   const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: async (data: UserLoginData) =>
-      await axios.post("/auth/login", {
-        email: data.email,
-        password: data.password,
-      }),
+    mutationFn: login,
     onSuccess: (res) => {
-      setAccessToken(res.data.accessToken);
-      setRefreshToken(res.data.refreshToken);
-      setToken(res.data.accessToken);
+      setAccessToken(res.data);
+      setToken(res.data);
       return navigate("/");
     },
     onError: (err) => console.log(err.message),
