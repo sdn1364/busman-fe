@@ -1,28 +1,31 @@
-import { Menubar } from "@/components/ui/menubar";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@radix-ui/react-dropdown-menu";
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
-  MenubarMenu,
-  MenubarTrigger,
+  Menubar,
   MenubarContent,
   MenubarItem,
-} from "@radix-ui/react-menubar";
+  MenubarMenu,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
-} from "@radix-ui/react-select";
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import useLogout from "@/hooks/auth/use-logout";
 
 const TopMenubar = () => {
+  const { signout } = useLogout();
+
   return (
     <Menubar className="justify-between py-2">
       <MenubarMenu>
@@ -60,7 +63,9 @@ const TopMenubar = () => {
             <DropdownMenuSeparator />
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Log out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signout()}>
+              Log out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

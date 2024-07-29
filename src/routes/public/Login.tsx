@@ -5,9 +5,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import useLogin from "@/hooks/auth/use-login.ts";
-import LogoGreen from "@/assets/logo_color.svg";
 import Divider from "@/components/ui/Divider.tsx";
 import { PathConstants } from "@/PathConstants";
+import { useEffect } from "react";
 
 const LoginSchema = z.object({
   email: z
@@ -22,6 +22,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginSchemaType>({
     defaultValues: {
@@ -36,13 +37,10 @@ const Login = () => {
     mutate(data);
   };
 
+  console.log(error);
+
   return (
-    <div className="grid h-screen w-full grid-cols-2">
-      <div className="relative h-screen w-full bg-muted dark:border-r">
-        <div className="absolute left-5 top-5 flex h-auto flex-row items-center gap-2">
-          <img className="h-auto w-14" src={LogoGreen} alt="" />
-        </div>
-      </div>
+    <div className="grid h-screen w-full grid-cols-1">
       <div className="relative flex flex-col items-center justify-center">
         <Link to={PathConstants.REGISTER} className="absolute right-5 top-5">
           <Button variant="outline">Sing up</Button>

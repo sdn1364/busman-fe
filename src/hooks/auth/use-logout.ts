@@ -1,19 +1,22 @@
-import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../use-local-storage";
 import useAuth from "./use-auth";
+import { useMutation } from "@tanstack/react-query";
+import { logout } from "@/api/services/auth";
 
 const useLogout = () => {
   const [setAccessToken] = useLocalStorage("access-token");
 
-  const { setToken } = useAuth();
-  const navigate = useNavigate();
+  const { setToken, token } = useAuth();
 
-  const logout = () => {
-    setToken("");
-    setAccessToken("");
-  };
+  const { mutate: signout } = useMutation({
+    mutationFn: () => logout(token!),
+    onSuccess: () => {
+      setToken("");
+      setAccessToken("");
+    },
+  });
 
-  return { logout };
+  return { signout };
 };
 
 export default useLogout;

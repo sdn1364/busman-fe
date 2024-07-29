@@ -6,6 +6,7 @@ import { login } from "@/api/services/auth";
 
 const useLogin = () => {
   const [setAccessToken] = useLocalStorage("access-token");
+  const [setRefreshToken] = useLocalStorage("refresh-token");
 
   const { setToken } = useAuth();
   const navigate = useNavigate();
@@ -13,11 +14,13 @@ const useLogin = () => {
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (res) => {
-      setAccessToken(res.data);
-      setToken(res.data);
+      console.log(res);
+      setAccessToken(res.accessToken);
+      setRefreshToken(res.refreshToken);
+      setToken(res.accessToken);
       return navigate("/");
     },
-    onError: (err) => console.log(err.message),
+    onError: (err) => err,
   });
 
   return {
