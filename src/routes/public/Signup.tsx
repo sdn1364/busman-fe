@@ -1,24 +1,67 @@
 import InputField from "@/components/ui/InputField.tsx";
 import { Button } from "@/components/ui/button.tsx";
+import useSignUp from "@/hooks/auth/use-signup";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { z } from "zod";
+
+const SignupSchema = z.object({
+  email: z
+    .string({ message: "Email address is required" })
+    .email({ message: "Please enter valid email address" }),
+  password: z.string().min(6, "Password must be at least 6 characters").max(20),
+});
+
+type SignupSchemaType = z.infer<typeof SignupSchema>;
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupSchemaType>({
+    defaultValues: {
+      email: "test@test.com",
+      password: "123456",
+    },
+    resolver: zodResolver(SignupSchema),
+  });
+
+  const { mutate } = useSignUp();
+
+  const signup = (data: SignupSchemaType) => {
+    mutate(data);
+  };
+
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <h1 className="font-bold text-3xl mb-5">Sign up</h1>
-      <form>
-        <div className="w-96 h-auto flex flex-col gap-5">
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
+      <h1 className="mb-5 text-3xl font-bold">Sign up</h1>
+      <form onSubmit={handleSubmit(signup)}>
+        <div className="flex h-auto w-96 flex-col gap-5">
           <div className="flex flex-row gap-5">
             <InputField label="Name" placeholder="Name" type="text" />
             <InputField label="Last name" placeholder="Last name" type="text" />
           </div>
-          <InputField label="Email" placeholder="Email" type="email" />
-          <InputField label="Password" placeholder="Password" type="password" />
+          <InputField
+            error={errors.email}
+            label="Email"
+            placeholder="Email"
+            type="email"
+            {...register("email")}
+          />
+          <InputField
+            error={errors.password}
+            label="Password"
+            placeholder="Password"
+            type="password"
+            {...register("password", { required: true })}
+          />
 
           <Button type="submit">Sign up</Button>
         </div>
       </form>
-      <p className="font-bold text-xl my-5">or</p>
+      <p className="my-5 text-xl font-bold">or</p>
       <p>
         Already have an account?{" "}
         <Link to="/login" className="text-primary hover:underline">

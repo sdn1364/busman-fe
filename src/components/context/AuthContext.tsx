@@ -1,22 +1,62 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { supabase } from "@/api/supabase";
+import {
+  createContext,
+  PropsWithChildren,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 export const AuthContext = createContext<IAuthContext>({
-  token: "",
+  user: {},
+  auth: false,
 } as IAuthContext);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem("access-token");
-  });
+  const [user, setUser] = useState<object | null>(null);
+  const [auth, setAuth] = useState<boolean | null>(false);
+  const [loading, setLoading] = useState(true);
+
+  useLayoutEffect(() => {
+    setLoading(true);
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      const { user: currentUser } = data;
+      setUser(currentUser ?? null);
+      setAuth(currentUser ? true : false);
+
+      setLoading(false);
+    };
+
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN" && session) {
+        setUser(session.user);
+        setAuth(true);
+      } else if (event === "SIGNED_OUT") {
+        setUser(null);
+        setAuth(false);
+      }
+    });
+
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        token,
-        setToken,
+        user,
+        setUser,
+        auth,
+        setAuth,
       }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

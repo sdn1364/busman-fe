@@ -22,24 +22,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useLogout from "@/hooks/auth/use-logout";
+import { useNavigate } from "react-router-dom";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
 
+  const navigate = useNavigate();
+
   return (
     <Menubar className="justify-between py-2">
-      <MenubarMenu>
-        <MenubarTrigger>Settings</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem onClick={() => navigate("/settings/business")}>
-            Business
-          </MenubarItem>
-          <MenubarItem>Online booking</MenubarItem>
-          <MenubarItem>Subscription</MenubarItem>
-          <MenubarItem>Locations</MenubarItem>
-          <MenubarItem>Payment</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
+      <div className="flex flex-row items-center">
+        <h2 className="mr-5 font-bold">Elso Manager</h2>
+        <MenubarMenu>
+          <MenubarTrigger>Settings</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem onClick={() => navigate("/settings/business")}>
+              Business
+            </MenubarItem>
+            <MenubarItem>Online booking</MenubarItem>
+            <MenubarItem>Subscription</MenubarItem>
+            <MenubarItem>Locations</MenubarItem>
+            <MenubarItem>Payment</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      </div>
       <div className="flex flex-row items-center gap-5">
         <Select>
           <SelectTrigger className="w-[180px]">

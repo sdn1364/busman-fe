@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import InputField from "@/components/ui/InputField.tsx";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLogin from "@/hooks/auth/use-login.ts";
 import Divider from "@/components/ui/Divider.tsx";
 import { PathConstants } from "@/PathConstants";
+import useAuth from "@/hooks/auth/use-auth";
 import { useEffect } from "react";
 
 const LoginSchema = z.object({
@@ -19,10 +20,12 @@ const LoginSchema = z.object({
 type LoginSchemaType = z.infer<typeof LoginSchema>;
 
 const Login = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<LoginSchemaType>({
     defaultValues: {
@@ -36,6 +39,13 @@ const Login = () => {
   const signIn = (data: LoginSchemaType) => {
     mutate(data);
   };
+
+  useEffect(() => {
+    if (auth) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   console.log(error);
 
