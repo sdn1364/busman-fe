@@ -13,9 +13,20 @@ export const logout = async () => {
   return supabase.auth.signOut();
 };
 
-export const singup = ({ email, password }: UserSignupData) => {
+export const singup = ({
+  email,
+  password,
+  first_name,
+  last_name,
+}: UserSignupData) => {
   return supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        first_name,
+        last_name,
+      },
+    },
   });
 };

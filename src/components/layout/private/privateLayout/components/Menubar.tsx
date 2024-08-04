@@ -1,4 +1,6 @@
+import { useTheme } from "@/components/context/theme-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,11 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useLogout from "@/hooks/auth/use-logout";
+import UseAuth from "@/hooks/auth/useAuth";
+import useLogout from "@/hooks/auth/useLogout";
+import { Moon, Sun } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
+  const { setTheme, theme } = useTheme();
+  const { user } = UseAuth();
 
   const navigate = useNavigate();
 
@@ -33,6 +39,11 @@ const TopMenubar = () => {
     <Menubar className="justify-between py-2">
       <div className="flex flex-row items-center">
         <h2 className="mr-5 font-bold">Elso Manager</h2>
+        <MenubarMenu>
+          <MenubarTrigger onClick={() => navigate("/")}>
+            Dashboard
+          </MenubarTrigger>
+        </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>Settings</MenubarTrigger>
           <MenubarContent>
@@ -46,7 +57,7 @@ const TopMenubar = () => {
           </MenubarContent>
         </MenubarMenu>
       </div>
-      <div className="flex flex-row items-center gap-5">
+      <div className="flex flex-row items-center gap-0">
         <Select>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Current business" />
@@ -56,12 +67,31 @@ const TopMenubar = () => {
             <SelectItem value="dark">bus 02</SelectItem>
           </SelectContent>
         </Select>
-
+        <Button
+          size="sm"
+          variant="ghost"
+          className="rounded-none border-r px-5"
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        >
+          {theme === "light" ? (
+            <Moon size={15} strokeWidth={1} />
+          ) : (
+            <Sun size={15} strokeWidth={1} />
+          )}
+        </Button>
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className="px-2">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              {user?.user_metadata?.image && (
+                <AvatarImage
+                  src={user?.user_metadata?.image}
+                  alt="user avatar"
+                />
+              )}
+              <AvatarFallback>
+                <span>{user?.user_metadata?.first_name[0]} </span>
+                <span>{user?.user_metadata?.last_name[0]}</span>
+              </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

@@ -1,6 +1,6 @@
 import InputField from "@/components/ui/InputField.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import useSignUp from "@/hooks/auth/use-signup";
+import useSignUp from "@/hooks/auth/useSignup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";

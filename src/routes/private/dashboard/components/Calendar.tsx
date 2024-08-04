@@ -1,4 +1,4 @@
-import useCalendar from "@/hooks/use-calendar";
+import useCalendar from "@/hooks/useCalendar";
 import MultipleDaysView from "./MultipleDaysView";
 import MonthView from "./monthView/MonthView";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,12 @@ import {
 } from "@/components/ui/popover";
 
 const Calendar = () => {
-  const { calendarView, setNumberOfDays, numberOfDays } = useCalendar();
+  const {
+    calendarView,
+    increaseNumberOfDays,
+    decreaseNumberOfDays,
+    numberOfDays,
+  } = useCalendar();
 
   return (
     <div
@@ -30,7 +35,7 @@ const Calendar = () => {
             <Button
               size="icon-xs"
               variant="secondary"
-              onClick={() => setNumberOfDays((val) => (val > 1 ? val - 1 : 1))}
+              onClick={decreaseNumberOfDays}
             >
               <Minus size={10} />
             </Button>
@@ -42,9 +47,7 @@ const Calendar = () => {
             <Button
               size="icon-xs"
               variant="secondary"
-              onClick={() =>
-                setNumberOfDays((val) => (val < 31 ? val + 1 : 31))
-              }
+              onClick={increaseNumberOfDays}
             >
               <Plus size={10} />
             </Button>

@@ -12,14 +12,16 @@ const MonthView = () => {
   );
 
   return (
-    <div className="grid grid-cols-3 place-items-center gap-5">
-      {calendar.map((month, index) => (
-        <Month
-          key={index}
-          month={month}
-          name={dayjs().month(index).format("MMMM")}
-        />
-      ))}
+    <div className="mx-auto w-[1024px]">
+      <div className="grid grid-cols-3 place-items-center gap-5">
+        {calendar.map((month, index) => (
+          <Month
+            key={index}
+            month={month}
+            name={dayjs().month(index).format("MMMM")}
+          />
+        ))}
+      </div>
     </div>
   );
 };

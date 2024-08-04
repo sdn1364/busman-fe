@@ -1,6 +1,6 @@
 import { ComponentType } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import useAuth from "@/hooks/auth/use-auth.ts";
+import useAuth from "@/hooks/auth/useAuth";
 
 const WithAuth = (Component: ComponentType) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

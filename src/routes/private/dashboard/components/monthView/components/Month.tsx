@@ -23,7 +23,7 @@ const Month = ({
             return (
               <div
                 key={index}
-                className={`flex h-8 w-8 items-center justify-center rounded ${day ? "cursor-pointer bg-slate-900 hover:bg-slate-700" : ""} ${day === currentDay && currentMonth === name ? "bg-red-600 font-[900] text-white hover:bg-red-700" : "font-light"}`}
+                className={`flex h-8 w-8 items-center justify-center rounded ${day ? "ho cursor-pointer bg-slate-100 hover:bg-slate-300 dark:bg-slate-900 hover:dark:bg-slate-700" : ""} ${day === currentDay && currentMonth === name ? "!bg-red-600 font-[900] text-white hover:bg-red-700" : "font-light"}`}
               >
                 {day}
               </div>

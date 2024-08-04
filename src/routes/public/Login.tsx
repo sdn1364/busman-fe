@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import InputField from "@/components/ui/InputField.tsx";
+import InputField from "@/components/ui/InputField";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import useLogin from "@/hooks/auth/use-login.ts";
-import Divider from "@/components/ui/Divider.tsx";
+import useLogin from "@/hooks/auth/useLogin";
+import Divider from "@/components/ui/Divider";
 import { PathConstants } from "@/PathConstants";
-import useAuth from "@/hooks/auth/use-auth";
+import useAuth from "@/hooks/auth/useAuth";
 import { useEffect } from "react";
 
 const LoginSchema = z.object({

@@ -1,4 +1,4 @@
-import useCalendar from "@/hooks/use-calendar";
+import useCalendar from "@/hooks/useCalendar";
 import { now } from "@/lib/utils";
 import dayjs from "dayjs";
 import { CSSProperties, forwardRef } from "react";

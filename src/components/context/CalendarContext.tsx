@@ -10,6 +10,8 @@ type CalendarContextType = {
 type CalendarActionContextType = {
   setNumberOfDays: Dispatch<number>;
   setCalendarView: Dispatch<string>;
+  increaseNumberOfDays: () => void;
+  decreaseNumberOfDays: () => void;
 };
 
 export const CalendarContext = createContext<CalendarContextType>({
@@ -25,11 +27,20 @@ const CalendarProvider = ({ children }: PropsWithChildren) => {
   const [numberOfDays, setNumberOfDays] = useState<number>(7);
   const [calendarView, setCalendarView] = useState<string>("week");
 
+  const increaseNumberOfDays = () => {
+    setNumberOfDays(numberOfDays < 31 ? numberOfDays + 1 : 31);
+  };
+  const decreaseNumberOfDays = () => {
+    setNumberOfDays(numberOfDays > 1 ? numberOfDays - 1 : 1);
+  };
+
   return (
     <CalendarActionContext.Provider
       value={{
         setNumberOfDays,
         setCalendarView,
+        increaseNumberOfDays,
+        decreaseNumberOfDays,
       }}
     >
       <CalendarContext.Provider

@@ -1,6 +1,6 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Column from "./Column";
-import useCalendar from "@/hooks/use-calendar";
+import useCalendar from "@/hooks/useCalendar";
 import dayjs from "dayjs";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 

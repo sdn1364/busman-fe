@@ -1,10 +1,10 @@
 export const PathConstants = {
-  LOGIN: "login",
-  REGISTER: "register",
+  LOGIN: "/login",
+  REGISTER: "/register",
   LOGOUT: "logout",
-  DASHBOARD: "",
-  TERMS: "terms",
-  PRIVACY: "privacy",
-  SETTINGS: "settings",
+  DASHBOARD: "/",
+  TERMS: "/terms",
+  PRIVACY: "/privacy",
+  SETTINGS: "/settings",
   BUSINESS: "business",
 };

@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useCalendar from "@/hooks/use-calendar";
+import useCalendar from "@/hooks/useCalendar";
 import { capitilize, createDaysCalendar } from "@/lib/utils";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
