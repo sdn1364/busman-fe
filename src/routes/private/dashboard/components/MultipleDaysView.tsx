@@ -1,97 +1,114 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Column from "./Column";
 import useCalendar from "@/hooks/use-calendar";
-import { useCallback, useRef, useState } from "react";
 import dayjs from "dayjs";
+import { CSSProperties, useEffect, useRef, useState } from "react";
+
+import duration from "dayjs/plugin/duration";
 import { createDaysCalendar } from "@/lib/utils";
-import { FixedSizeList as List } from "react-window";
-import { CSSProperties } from "react";
-import { useEffect } from "react";
+
+dayjs.extend(duration);
 
 const MultipleDaysView = () => {
   const { numberOfDays } = useCalendar();
-  const margin: number = 5;
-  const totalDays: number = numberOfDays + margin * 2;
-
-  const [days, setDays] = useState<dayjs.Dayjs[]>(
-    createDaysCalendar(numberOfDays),
-  );
-
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const [oldScrollPosition, setOldScrollPosition] = useState<number>(0);
+
+  const margin = 5;
+  const totalDays = numberOfDays + margin * 2;
+
+  const singleDayWidth = screen.availWidth / numberOfDays;
+  const styles = { "--single-day-width": singleDayWidth } as CSSProperties;
+
+  const tempDays = useRef<dayjs.Dayjs[]>(createDaysCalendar(numberOfDays));
+
+  const startDate: dayjs.Dayjs = dayjs("2005-1-1");
+  const startOfThisWeek = dayjs().startOf("week");
+  const endDate: dayjs.Dayjs = dayjs("2040-12-29");
+
+  const numberOfDaysInTheCalendar: number = dayjs
+    .duration(endDate.diff(startDate))
+    .asDays();
+
+  const calendarScrollwidth = numberOfDaysInTheCalendar * singleDayWidth - 80;
+
+  const numberOfDaysUpToStartOfWeek = dayjs
+    .duration(startOfThisWeek.diff(startDate))
+    .asDays();
+
+  const baseDayPosition = dayjs
+    .duration(tempDays.current[0].diff(startDate))
+    .asDays();
+  const baseScrollPosition = Math.floor(baseDayPosition) * singleDayWidth - 80;
+
+  const currentScrollPoint =
+    Math.floor(numberOfDaysUpToStartOfWeek) * singleDayWidth - 80;
 
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      // Set initial scroll position to start of the current week
-      const today = dayjs();
-      const startOfWeek = today.startOf("week");
-      const index = days.findIndex((day) => day.isSame(startOfWeek, "day"));
-      if (index >= 0) {
-        const scrollPosition = (index * container.clientWidth) / numberOfDays; // Adjust for the 5 days before the week
-        container.scrollLeft = scrollPosition;
-      }
+      container.scrollLeft = currentScrollPoint;
+      setOldScrollPosition(currentScrollPoint);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [numberOfDays]);
+  }, [currentScrollPoint]);
 
-  const handleScroll = useCallback(() => {
-    if (containerRef.current) {
-      const { scrollLeft, clientWidth, scrollWidth } = containerRef.current;
+  const handleOnScroll = () => {
+    const container = containerRef.current;
+    if (container) {
+      const scrollPosition = Math.floor(container.scrollLeft / singleDayWidth);
 
-      if (scrollLeft + clientWidth >= scrollWidth && days.length < 30) {
-        // Add more days to the end
-        setDays((prevDays) => [
-          ...prevDays,
-          ...Array.from({ length: numberOfDays }).map((_, i) =>
-            dayjs()
-              .startOf("week")
-              .add(prevDays.length + i, "day"),
-          ),
-        ]);
-      } else if (scrollLeft === 0 && days.length > totalDays) {
-        // Add more days to the start
-        setDays((prevDays) => [
-          ...Array.from({ length: numberOfDays }).map((_, i) =>
-            dayjs()
-              .startOf("week")
-              .subtract(7 - i, "day"),
-          ),
-          ...prevDays,
-        ]);
+      const days = [...tempDays.current];
+
+      if (oldScrollPosition - scrollPosition >= 1) {
+        days.pop();
+        days.unshift(days[0].subtract(1, "day"));
+        setOldScrollPosition(scrollPosition);
       }
+      if (scrollPosition - oldScrollPosition >= 1) {
+        days.shift();
+        days.push(dayjs(days[days.length - 1]).add(1, "day"));
+        setOldScrollPosition(scrollPosition);
+      }
+      tempDays.current = days;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [days]);
-
-  const Col = ({ index, style }: { index: number; style: CSSProperties }) => (
-    <Column style={style} day={days[index]} />
-  );
+  };
 
   return (
     <div
       className="flex w-full flex-row"
       style={{
         height: "calc(100vh - 96px)",
+        ...styles,
       }}
     >
       <div className="w-20 border-r"></div>
       <ScrollArea
-        className="snap-none"
         ref={containerRef}
+        className="snap-none"
         style={{
           width: "calc(100vw - 80px)",
         }}
-        onScroll={handleScroll}
+        onScroll={handleOnScroll}
       >
-        <List
-          height={"calc(100vh - 96px)"} // Fixed height of the container
-          itemCount={days.length}
-          itemSize={screen.availWidth / numberOfDays} // Width of each item
-          width={screen.availWidth - 80} // Width of the container
-          layout="horizontal" // Set layout to horizontal
+        <div
+          className="relative flex flex-row items-start bg-red-100"
+          style={{
+            width: calendarScrollwidth,
+            height: "calc(100vh, 96px)",
+          }}
         >
-          {Col}
-        </List>
+          {tempDays.current.map((day, index) => (
+            <Column
+              style={{
+                transform: `translate(${baseScrollPosition + index * singleDayWidth}px , 0px)`,
+              }}
+              key={day.valueOf()}
+              day={day}
+            />
+          ))}
+        </div>
         <ScrollBar className="hidden" orientation="horizontal" />
       </ScrollArea>
     </div>

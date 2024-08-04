@@ -5,7 +5,7 @@ import { CSSProperties, forwardRef } from "react";
 
 type Props = {
   day: dayjs.Dayjs;
-  style: CSSProperties;
+  style?: CSSProperties;
 };
 
 const Column = forwardRef<HTMLDivElement, Props>(
@@ -16,14 +16,14 @@ const Column = forwardRef<HTMLDivElement, Props>(
       <div
         data-grid-date={day.valueOf()}
         ref={ref}
-        className="absolute flex flex-col border-r"
+        className="absolute flex h-full w-auto snap-start flex-col border-r"
         style={{
-          minWidth: `calc((100vw - 80px) / ${numberOfDays})`,
+          minWidth: "var(--single-day-width)",
           ...style,
         }}
       >
         <div
-          className="header absolute left-0 top-0 flex flex-row items-baseline space-x-1 border-b p-2"
+          className="header absolute left-0 top-0 flex flex-row items-baseline space-x-1 border-b border-r p-2"
           style={{
             minWidth: `calc(100vw / ${numberOfDays})`,
           }}

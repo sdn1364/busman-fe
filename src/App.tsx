@@ -1,18 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "@/routes/public/Login.tsx";
-import { PathConstants } from "@/PathConstants.ts";
-import Dashboard from "@/routes/private/dashboard/Dashboard";
-import SignUp from "./routes/public/Signup";
-import BusinessSetting from "./routes/private/settings/businessSettings/BusinessSettings";
+import { PathConstants } from "./PathConstants";
+import { Login, Singup } from "./routes/public";
+import { BusinessSetting, Dashboard } from "./routes/private";
 import PrivateLayout from "./components/layout/private/privateLayout/PrivateLayout";
 
 function App() {
   return (
     <Routes>
-      {/*public paths*/}
+      {/*public routes*/}
       <Route path={PathConstants.LOGIN} element={<Login />} />
-      <Route path={PathConstants.REGISTER} element={<SignUp />} />
-      {/*private paths*/}
+      <Route path={PathConstants.REGISTER} element={<Singup />} />
+
+      {/*private routes*/}
       <Route element={<PrivateLayout />}>
         <Route path={PathConstants.DASHBOARD} element={<Dashboard />} />
         <Route path={PathConstants.SETTINGS}>

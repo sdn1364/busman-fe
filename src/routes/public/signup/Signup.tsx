@@ -11,6 +11,8 @@ const SignupSchema = z.object({
     .string({ message: "Email address is required" })
     .email({ message: "Please enter valid email address" }),
   password: z.string().min(6, "Password must be at least 6 characters").max(20),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
 });
 
 type SignupSchemaType = z.infer<typeof SignupSchema>;
@@ -22,17 +24,23 @@ const SignUp = () => {
     formState: { errors },
   } = useForm<SignupSchemaType>({
     defaultValues: {
-      email: "test@test.com",
-      password: "123456",
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
     },
     resolver: zodResolver(SignupSchema),
   });
 
-  const { mutate } = useSignUp();
+  const { mutate, error, isError } = useSignUp();
 
   const signup = (data: SignupSchemaType) => {
     mutate(data);
   };
+
+  if (isError) {
+    return <>{error.message}</>;
+  }
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center">
@@ -40,8 +48,20 @@ const SignUp = () => {
       <form onSubmit={handleSubmit(signup)}>
         <div className="flex h-auto w-96 flex-col gap-5">
           <div className="flex flex-row gap-5">
-            <InputField label="Name" placeholder="Name" type="text" />
-            <InputField label="Last name" placeholder="Last name" type="text" />
+            <InputField
+              error={errors.first_name}
+              {...register("first_name")}
+              label="Name"
+              placeholder="Name"
+              type="text"
+            />
+            <InputField
+              error={errors.last_name}
+              {...register("last_name")}
+              label="Last name"
+              placeholder="Last name"
+              type="text"
+            />
           </div>
           <InputField
             error={errors.email}

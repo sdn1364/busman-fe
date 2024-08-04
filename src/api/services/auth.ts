@@ -13,13 +13,7 @@ export const logout = async () => {
   return supabase.auth.signOut();
 };
 
-export const singup = ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
+export const singup = ({ email, password }: UserSignupData) => {
   return supabase.auth.signUp({
     email,
     password,

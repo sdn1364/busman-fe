@@ -124,17 +124,18 @@ export const formatedDate = (date: dayjs.Dayjs) => {
 };
 
 export const createDaysCalendar = (numberOfDays: number) => {
+  const margin = 5;
   const days: dayjs.Dayjs[] = [];
   // what day is today => now
   // get the first of the week date
 
   const startOfWeek = now.startOf("week");
 
-  for (let i = -5; i < 0; i++) {
+  for (let i = -margin; i < 0; i++) {
     days.push(startOfWeek.add(i, "day"));
   }
 
-  for (let i = 0; i < numberOfDays + 5; i++) {
+  for (let i = 0; i < numberOfDays + margin; i++) {
     days.push(startOfWeek.add(i, "day"));
   }
 
