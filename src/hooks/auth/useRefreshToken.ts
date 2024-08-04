@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/auth/use-auth.ts";
-import useLocalStorage from "../use-local-storage";
+import useLocalStorage from "../useLocalstorage";
 import { getRefreshToken } from "@/api/services/auth";
 
 const UseRefreshToken = () => {
