@@ -1,59 +1,28 @@
 import useCalendar from "@/hooks/useCalendar";
-import MultipleDaysView from "./MultipleDaysView";
+import MultipleDaysView from "./multipleDaysView/MultipleDaysView";
 import MonthView from "./monthView/MonthView";
-import { Button } from "@/components/ui/button";
-import { Diff, Minus, Plus } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { CSSProperties } from "react";
 
 const Calendar = () => {
-  const {
-    calendarView,
-    increaseNumberOfDays,
-    decreaseNumberOfDays,
-    numberOfDays,
-  } = useCalendar();
+  const { calendarView, numberOfDays } = useCalendar();
 
+  const singleDayWidth = screen.availWidth / numberOfDays;
+
+  const styles = {
+    "--all-days-calendar": screen.availWidth - 80 - 200,
+    "--single-day-width": `${singleDayWidth}px`,
+    "--tick-height": "4px",
+    "--day-header-height": `54px`,
+    "--column-height": `${4 * 12 * 24}px`,
+  } as CSSProperties;
   return (
     <div
-      className="relative flex w-screen overflow-hidden"
+      className="w-screen overflow-hidden"
       style={{
         height: "calc(100vh - 96px)",
+        ...styles,
       }}
     >
-      <div className="absolute right-2 top-1 z-30">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button size="icon-xs" variant="secondary">
-              <Diff size={10} />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="flex w-auto flex-row space-x-1 p-1">
-            <Button
-              size="icon-xs"
-              variant="secondary"
-              onClick={decreaseNumberOfDays}
-            >
-              <Minus size={10} />
-            </Button>
-            <input
-              className="w-10 text-center"
-              type="text"
-              value={numberOfDays}
-            />
-            <Button
-              size="icon-xs"
-              variant="secondary"
-              onClick={increaseNumberOfDays}
-            >
-              <Plus size={10} />
-            </Button>
-          </PopoverContent>
-        </Popover>
-      </div>
       {calendarView === "week" && <MultipleDaysView />}
       {calendarView === "year" && <MonthView />}
     </div>

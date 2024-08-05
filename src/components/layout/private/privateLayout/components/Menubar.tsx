@@ -73,11 +73,7 @@ const TopMenubar = () => {
           className="rounded-none border-r px-5"
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
-          {theme === "light" ? (
-            <Moon size={15} strokeWidth={1} />
-          ) : (
-            <Sun size={15} strokeWidth={1} />
-          )}
+          {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger className="px-2">

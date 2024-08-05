@@ -30,7 +30,7 @@ const Timebar = () => {
           <DropdownMenuTrigger asChild>
             <Button size="xs" variant="secondary" className="space-x-2 text-xs">
               <span>{capitilize(calendarView)}</span>
-              <ChevronDown size={15} strokeWidth={1} />
+              <ChevronDown size={15} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -48,19 +48,14 @@ const Timebar = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button
-          size="xs"
-          variant="secondary"
-          className="text-xs"
-          onClick={() => setDays(createDaysCalendar(numberOfDays))}
-        >
+        <Button size="xs" variant="secondary" className="text-xs">
           Today
         </Button>
         <Button variant="secondary" size="icon-xs">
-          <ChevronLeft size={20} strokeWidth={1} />
+          <ChevronLeft size={15} />
         </Button>
         <Button variant="secondary" size="icon-xs">
-          <ChevronRight size={20} strokeWidth={1} />
+          <ChevronRight size={15} />
         </Button>
       </div>
     </div>

@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 import updateLocale from "dayjs/plugin/updateLocale";
 import weekday from "dayjs/plugin/weekday";
 import dayOfYear from "dayjs/plugin/dayOfYear";
-import { start } from "repl";
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
