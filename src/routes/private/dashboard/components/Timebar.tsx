@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useCalendar from "@/hooks/useCalendar";
-import { capitilize, createDaysCalendar } from "@/lib/utils";
+import { capitilize } from "@/lib/utils";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
@@ -14,7 +14,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 dayjs.extend(weekOfYear);
 
 const Timebar = () => {
-  const { calendarView, setCalendarView, numberOfDays } = useCalendar();
+  const { calendarView, setCalendarView } = useCalendar();
 
   return (
     <div className="timebar flex h-14 w-full flex-row items-center justify-between border-b px-5 py-2">

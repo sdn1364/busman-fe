@@ -33,7 +33,7 @@ const MultipleDaysView = () => {
           }}
         >
           <div
-            className="sticky -left-px top-0 z-[60] w-14 border-b border-r bg-background"
+            className="sticky -left-px top-0 z-[50] w-14 border-b border-r bg-background"
             style={{
               height: "var(--day-header-height)",
             }}

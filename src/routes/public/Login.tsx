@@ -44,71 +44,81 @@ const Login = () => {
 
   useEffect(() => {
     if (auth) {
-      navigate("/");
+      navigate(PathConstants.DASHBOARD);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   return (
-    <>
-      <Link to={PathConstants.REGISTER} className="absolute right-5 top-5">
-        <Button variant="outline">Sing up</Button>
-      </Link>
-      <div className="w-96">
-        <div className="flex w-full flex-col items-center gap-5">
-          <img src={Logo} alt="elso logo" width="45" />
-          <div>
-            <h1 className="mb-2 w-full text-center text-3xl font-bold">
-              Welcome to Elso Manager
-            </h1>
-            <h2 className="mb-10 w-full text-center text-xl">
-              Simple bussiness management
-            </h2>
-          </div>
+    <div className="w-96">
+      <div className="flex w-full flex-col items-center gap-5">
+        <img src={Logo} alt="elso logo" width="45" />
+        <div>
+          <h1 className="mb-2 w-full text-center text-3xl font-bold">
+            Welcome to Elso Manager
+          </h1>
+          <h2 className="mb-10 w-full text-center text-xl">
+            Simple bussiness management
+          </h2>
         </div>
-        {isError && <p className="text-center text-red-500">{error.message}</p>}
-        <form onSubmit={handleSubmit(signIn)}>
-          <div className="flex h-auto w-96 flex-col gap-5">
-            <InputField
-              error={errors.email}
-              label="Email"
-              placeholder="Email"
-              type="email"
-              {...register("email")}
-            />
-            <InputField
-              error={errors.password}
-              label="Password"
-              placeholder="Password"
-              type="password"
-              {...register("password", { required: true })}
-            />
-            <Button type="submit" disabled={isPending}>
-              {isPending ? "Signing you in ..." : "Continue"}
-            </Button>
-            <Divider label="Or continue with" />
-            <Button variant="outline">Login with Google</Button>
-          </div>
-        </form>
-        <p className="mt-5 px-8 text-center text-sm text-muted-foreground">
-          By clicking continue, you agree to our{" "}
-          <Link
-            to={PathConstants.TERMS}
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Terms of Service
-          </Link>{" "}
-          and{" "}
-          <Link
-            to={PathConstants.PRIVACY}
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Privacy Policy
-          </Link>
-          .
-        </p>
       </div>
-    </>
+      {isError && <p className="text-center text-red-500">{error.message}</p>}
+      <form onSubmit={handleSubmit(signIn)}>
+        <div className="flex h-auto w-96 flex-col gap-5">
+          <InputField
+            error={errors.email}
+            label="Email"
+            placeholder="Email"
+            type="email"
+            {...register("email")}
+          />
+          <InputField
+            error={errors.password}
+            label="Password"
+            placeholder="Password"
+            type="password"
+            {...register("password", { required: true })}
+          />
+          <a
+            href={PathConstants.FORGETPASS}
+            className="-mt-5 text-right text-sm hover:text-green-500"
+          >
+            Forgot password?
+          </a>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Signing you in ..." : "Continue"}
+          </Button>
+          <Divider label="Or continue with" />
+          <Button variant="outline">Login with Google</Button>
+        </div>
+      </form>
+      <p className="py-5 text-center">
+        New to Elso Manager?{" "}
+        <Link
+          to={PathConstants.REGISTER}
+          className="text-primary underline underline-offset-4 hover:text-green-500"
+        >
+          Sign up here
+        </Link>
+      </p>
+      <p className="mt-5 px-8 text-center text-sm text-muted-foreground">
+        By clicking continue, you agree to our{" "}
+        <Link
+          to={PathConstants.TERMS}
+          className="underline underline-offset-4 hover:text-green-500 hover:text-primary"
+        >
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link
+          to={PathConstants.PRIVACY}
+          className="underline underline-offset-4 hover:text-green-500 hover:text-primary"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </p>
+    </div>
   );
 };
 

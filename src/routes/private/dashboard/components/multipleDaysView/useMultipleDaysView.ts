@@ -24,7 +24,11 @@ const useMultipleDaysView = () => {
       setOldScrollPosition(currentScrollPoint! / singleDayWidth);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentScrollPoint]);
+  }, [currentScrollPoint, numberOfDays]);
+
+  useEffect(() => {
+    tempDays.current = createDaysCalendar(numberOfDays);
+  }, [numberOfDays]);
 
   const handleOnScroll = () => {
     const container = containerRef.current;

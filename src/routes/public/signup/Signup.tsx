@@ -4,9 +4,12 @@ import { Button } from "@/components/ui/button.tsx";
 import useSignUp from "@/hooks/auth/useSignup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import Logo from "@/assets/logo_white.svg";
+import { PathConstants } from "@/PathConstants";
+import { useEffect } from "react";
+import useAuth from "@/hooks/auth/useAuth";
 
 const SignupSchema = z.object({
   email: z
@@ -20,6 +23,8 @@ const SignupSchema = z.object({
 type SignupSchemaType = z.infer<typeof SignupSchema>;
 
 const SignUp = () => {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -39,6 +44,13 @@ const SignUp = () => {
   const signup = (data: SignupSchemaType) => {
     mutate(data);
   };
+
+  useEffect(() => {
+    if (auth) {
+      navigate(PathConstants.DASHBOARD);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   if (isError) {
     return <>{error.message}</>;
@@ -100,8 +112,11 @@ const SignUp = () => {
       <Divider label="Or" />
       <p>
         Already have an account?{" "}
-        <Link to="/login" className="text-primary underline">
-          Log in
+        <Link
+          to={PathConstants.LOGIN}
+          className="text-primary underline underline-offset-4"
+        >
+          Log in here
         </Link>
       </p>
     </>

@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import { PathConstants } from "./PathConstants";
-import { Login, Singup } from "./routes/public";
+import { Forget, Login, Singup, Verification } from "./routes/public";
 import { BusinessSetting, Dashboard } from "./routes/private";
 import PrivateLayout from "./components/layout/private/privateLayout/PrivateLayout";
-import Verification from "./routes/public/Verification";
 import PublicLayout from "./components/layout/public/PublicLayout";
+import ResetPassword from "./routes/public/ResetPassword";
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
         <Route path={PathConstants.LOGIN} element={<Login />} />
         <Route path={PathConstants.REGISTER} element={<Singup />} />
         <Route path={PathConstants.VERIFICATION} element={<Verification />} />
+        <Route path={PathConstants.FORGETPASS} element={<Forget />} />
+        <Route path={PathConstants.RESETPASSWORD} element={<ResetPassword />} />
       </Route>
       {/*private routes*/}
       <Route element={<PrivateLayout />}>
