@@ -25,8 +25,9 @@ import {
 } from "@/components/ui/select";
 import UseAuth from "@/hooks/auth/useAuth";
 import useLogout from "@/hooks/auth/useLogout";
-import { Moon, Sun } from "lucide-react";
+import { Bell, Moon, Sun } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Logo from "@/assets/logo_white.svg";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
@@ -38,11 +39,14 @@ const TopMenubar = () => {
   return (
     <Menubar className="justify-between py-2">
       <div className="flex flex-row items-center">
+        <img src={Logo} height={20} width={20} className="mr-3" alt="" />
         <h2 className="mr-5 font-bold">Elso Manager</h2>
         <MenubarMenu>
-          <MenubarTrigger onClick={() => navigate("/")}>
-            Dashboard
-          </MenubarTrigger>
+          <MenubarTrigger>Dashboard</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem onClick={() => navigate("/")}>Calendar</MenubarItem>
+            <MenubarItem>Reports</MenubarItem>
+          </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>Settings</MenubarTrigger>
@@ -74,6 +78,13 @@ const TopMenubar = () => {
           onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         >
           {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="rounded-none border-r px-5"
+        >
+          <Bell size={15} />
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger className="px-2">

@@ -3,6 +3,7 @@ import useMultipleDaysView from "./useMultipleDaysView";
 import NumberOfDays from "./components/NumberOfDays";
 import AllDays from "./components/AllDays";
 import DayHeaders from "./components/DayHeaders";
+import Times from "./components/Times";
 
 const MultipleDaysView = () => {
   const {
@@ -17,26 +18,28 @@ const MultipleDaysView = () => {
       <NumberOfDays />
       <ScrollArea
         ref={containerRef}
-        className="relative w-full snap-none"
+        className="relative snap-none"
         style={{
+          // width: "var(--all-days-calendar)",
           height: "calc(100vh - 96px)",
         }}
         onScroll={handleOnScroll}
       >
         <div
-          className="scroll-container relative"
+          className="scroll-container relative block"
           style={{
             width: calendarScrollwidth,
             height: "var(--column-height)",
           }}
         >
-          <DayHeaders days={days.current} />
           <div
-            className="times sticky left-0 z-[60] block h-full w-14 bg-red-100"
+            className="sticky -left-px top-0 z-[60] w-14 border-b border-r bg-background"
             style={{
-              height: "var(--column-height)",
+              height: "var(--day-header-height)",
             }}
           ></div>
+          <DayHeaders days={days.current} />
+          <Times />
           <AllDays days={days.current} />
         </div>
         <ScrollBar className="hidden" orientation="horizontal" />

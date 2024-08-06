@@ -14,20 +14,20 @@ const Column = forwardRef<HTMLDivElement, Props>(
         data-grid-date={day.valueOf()}
         ref={ref}
         className={cn(
-          "absolute top-0 flex w-auto snap-start flex-col border-r",
+          "absolute top-0 flex snap-start flex-col border-r",
           (day.day() !== 6 || day.day() !== 0) && "bg-background",
           (day.day() === 6 || day.day() === 0) &&
-            "bg-slate-200 dark:bg-gray-900",
+            "bg-slate-100 dark:bg-gray-900",
         )}
         style={{
           width: "var(--single-day-width)",
+          height: "var(--column-height)",
           ...style,
         }}
       >
         <div
           className="relative w-full"
           style={{
-            paddingTop: "var(--day-header-height)",
             height: "var(--column-height)",
           }}
         >
@@ -37,10 +37,9 @@ const Column = forwardRef<HTMLDivElement, Props>(
               return (
                 <div
                   key={i}
-                  className="absolute left-0 flex h-px bg-slate-200 dark:bg-slate-800"
+                  className="absolute left-0 flex h-px w-full bg-slate-200 dark:bg-slate-800"
                   style={{
-                    top: `calc(var(--tick-height) * ${offset})`,
-                    width: "var(--single-day-width)",
+                    top: `calc(var(--day-header-height) + var(--tick-height) * ${offset})`,
                   }}
                 />
               );

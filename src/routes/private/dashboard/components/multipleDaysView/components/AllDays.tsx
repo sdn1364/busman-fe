@@ -3,18 +3,22 @@ import useDays from "../useDays";
 import Column from "./Column";
 
 const AllDays = ({ days }: { days: dayjs.Dayjs[] }) => {
-  const { baseScrollPosition } = useDays(days);
+  const { baseScrollPosition, singleDayWidth } = useDays(days);
   return (
     <>
-      {days.map((day, index) => (
-        <Column
-          style={{
-            transform: `translate(calc(${baseScrollPosition}px + ${index} * var(--single-day-width)) , 0px)`,
-          }}
-          key={day.valueOf()}
-          day={day}
-        />
-      ))}
+      {days.map((day, index) => {
+        const transform = baseScrollPosition! + index * singleDayWidth;
+
+        return (
+          <Column
+            style={{
+              transform: `translate(${transform}px , 0px)`,
+            }}
+            key={day.valueOf()}
+            day={day}
+          />
+        );
+      })}
     </>
   );
 };

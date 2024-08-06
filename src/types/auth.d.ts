@@ -7,5 +7,5 @@ interface IAuthContext {
   setAuth: React.Dispatch<SetStateAction<boolean>>;
   setUser: React.Dispatch<SetStateAction<object>>;
   auth: boolean | null;
-  user: object | null;
+  user: User | null;
 }

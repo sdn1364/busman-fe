@@ -10,7 +10,7 @@ dayjs.extend(duration);
 const useMultipleDaysView = () => {
   const { numberOfDays } = useCalendar();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [oldScrollPosition, setOldScrollPosition] = useState<number>();
+  const [oldScrollPosition, setOldScrollPosition] = useState<number>(0);
 
   const tempDays = useRef<dayjs.Dayjs[]>(createDaysCalendar(numberOfDays));
 
@@ -20,8 +20,8 @@ const useMultipleDaysView = () => {
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      container.scrollLeft = currentScrollPoint;
-      setOldScrollPosition(currentScrollPoint / singleDayWidth);
+      container.scrollLeft = currentScrollPoint!;
+      setOldScrollPosition(currentScrollPoint! / singleDayWidth);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentScrollPoint]);
@@ -51,7 +51,7 @@ const useMultipleDaysView = () => {
     }
   };
 
-  const calendarScrollwidth = numberOfDaysInTheCalendar * singleDayWidth;
+  const calendarScrollwidth = numberOfDaysInTheCalendar! * singleDayWidth;
 
   return {
     containerRef,

@@ -1,4 +1,6 @@
 import { supabase } from "@/api/supabase";
+import { User } from "@supabase/supabase-js";
+
 import {
   createContext,
   PropsWithChildren,
@@ -13,7 +15,7 @@ export const AuthContext = createContext<IAuthContext>({
 } as IAuthContext);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<object | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [auth, setAuth] = useState<boolean | null>(false);
   const [loading, setLoading] = useState(true);
 

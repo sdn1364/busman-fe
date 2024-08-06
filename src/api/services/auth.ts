@@ -1,25 +1,29 @@
 import { supabase } from "../supabase";
 
 export const login = async (data: UserLoginData) => {
-  return supabase.auth
-    .signInWithPassword({
-      email: data.email,
-      password: data.password,
-    })
-    .then((res) => res.data);
+  const { data: loginData, error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return loginData;
 };
 
 export const logout = async () => {
   return supabase.auth.signOut();
 };
 
-export const singup = ({
+export const singup = async ({
   email,
   password,
   first_name,
   last_name,
 }: UserSignupData) => {
-  return supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -29,4 +33,9 @@ export const singup = ({
       },
     },
   });
+  if (error) {
+    throw error;
+  }
+
+  return data;
 };

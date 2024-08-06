@@ -1,3 +1,4 @@
+import Divider from "@/components/ui/Divider";
 import InputField from "@/components/ui/InputField.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import useSignUp from "@/hooks/auth/useSignup";
@@ -5,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import Logo from "@/assets/logo_white.svg";
 
 const SignupSchema = z.object({
   email: z
@@ -32,7 +34,7 @@ const SignUp = () => {
     resolver: zodResolver(SignupSchema),
   });
 
-  const { mutate, error, isError } = useSignUp();
+  const { mutate, error, isError, isPending } = useSignUp();
 
   const signup = (data: SignupSchemaType) => {
     mutate(data);
@@ -43,8 +45,18 @@ const SignUp = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
-      <h1 className="mb-5 text-3xl font-bold">Sign up</h1>
+    <>
+      <div className="flex w-full flex-col items-center gap-5">
+        <img src={Logo} alt="elso logo" width="45" />
+        <div>
+          <h1 className="mb-2 w-full text-center text-3xl font-bold">
+            Sign up to Elso Manager
+          </h1>
+          <h2 className="mb-10 w-full text-center text-xl">
+            Just one step left to simple management
+          </h2>
+        </div>
+      </div>
       <form onSubmit={handleSubmit(signup)}>
         <div className="flex h-auto w-96 flex-col gap-5">
           <div className="flex flex-row gap-5">
@@ -78,17 +90,21 @@ const SignUp = () => {
             {...register("password", { required: true })}
           />
 
-          <Button type="submit">Sign up</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? "Signing up ..." : "Sing up"}
+          </Button>
+          <Divider label="Or continue with" />
+          <Button variant="outline">Signup with Google</Button>
         </div>
       </form>
-      <p className="my-5 text-xl font-bold">or</p>
+      <Divider label="Or" />
       <p>
         Already have an account?{" "}
-        <Link to="/login" className="text-primary hover:underline">
+        <Link to="/login" className="text-primary underline">
           Log in
         </Link>
       </p>
-    </div>
+    </>
   );
 };
 
