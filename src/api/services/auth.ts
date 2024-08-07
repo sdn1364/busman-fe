@@ -1,3 +1,4 @@
+import { AuthError } from "@supabase/supabase-js";
 import { supabase } from "../supabase";
 
 export const login = async (data: UserLoginData) => {
@@ -6,9 +7,7 @@ export const login = async (data: UserLoginData) => {
     password: data.password,
   });
 
-  if (error) {
-    throw error;
-  }
+  if (error) throw error;
 
   return loginData;
 };
@@ -33,9 +32,17 @@ export const singup = async ({
       },
     },
   });
-  if (error) {
-    throw error;
-  }
 
+  if (error) throw error;
+
+  return data;
+};
+
+export const resetPassword = async (email: string) => {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "http://localhost:5173/reset-password",
+  });
+
+  if (error) throw error;
   return data;
 };

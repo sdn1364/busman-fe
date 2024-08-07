@@ -4,8 +4,11 @@ type TokenData = {
 };
 
 interface IAuthContext {
-  setAuth: React.Dispatch<SetStateAction<boolean>>;
-  setUser: React.Dispatch<SetStateAction<object>>;
   auth: boolean | null;
   user: User | null;
+}
+
+interface IAuthActionsContext {
+  setAuth: React.Dispatch<SetStateAction<boolean>>;
+  setUser: React.Dispatch<SetStateAction<object>>;
 }

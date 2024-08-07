@@ -31,12 +31,17 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import useGetBusinesses from "@/hooks/business/useGetBusinesses";
+import useBusiness from "@/hooks/business/useBusiness";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
   const { setTheme, theme } = useTheme();
   const { user } = UseAuth();
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
+
+  const { data, isPending, isSuccess } = useGetBusinesses();
+  const { business } = useBusiness();
 
   const navigate = useNavigate();
 
@@ -79,13 +84,16 @@ const TopMenubar = () => {
                 variant="ghost"
                 className="flex h-10 w-[180px] flex-row justify-around rounded-none border-l border-r bg-slate-300 p-0 dark:bg-slate-900"
               >
-                <span>Current business</span>
+                {business ? business.name : <span>Current business</span>}
+
                 <ChevronDown size={15} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[180px]">
-              <DropdownMenuItem>Bus 01</DropdownMenuItem>
-              <DropdownMenuItem>Bus 02</DropdownMenuItem>
+              {isSuccess &&
+                data.map((bus) => (
+                  <DropdownMenuItem key={bus.id}>{bus.name}</DropdownMenuItem>
+                ))}
               <DropdownMenuSeparator />
               <DropdownMenuItem>Create new business</DropdownMenuItem>
             </DropdownMenuContent>
@@ -139,7 +147,7 @@ const TopMenubar = () => {
         direction="right"
       >
         <DrawerContent className="bottom-0 left-auto right-0 flex h-full w-[400px] flex-col rounded-none rounded-l-[10px]">
-          <DrawerClose className="absolute">
+          <DrawerClose className="absolute left-2 top-2" asChild>
             <Button variant="ghost" size="icon-sm">
               <X size={15} />
             </Button>

@@ -10,4 +10,9 @@ export const PathConstants = {
   BUSINESS: "business",
   FORGETPASS: "/forget-password",
   RESETPASSWORD: "/reset-password",
+  ONBOARDING: "/onboarding",
+  STEP1: "step01",
+  STEP2: "step02",
+  STEP3: "step03",
+  STEP4: "step04",
 };

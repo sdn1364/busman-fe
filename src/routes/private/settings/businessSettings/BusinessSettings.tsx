@@ -1,9 +1,8 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import WithAuth from "../../../WithAuth";
 import Page from "@/components/ui/Page";
 import BusinessDetails from "./components/BusinessDetails";
 
-const BusinessSetting = WithAuth(() => {
+const BusinessSetting = () => {
   const tabs = [
     {
       name: "Details",
@@ -49,6 +48,6 @@ const BusinessSetting = WithAuth(() => {
       </div>
     </Page>
   );
-});
+};
 
 export default BusinessSetting;

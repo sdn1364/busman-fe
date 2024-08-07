@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { PathConstants } from "./PathConstants";
 import { Forget, Login, Singup, Verification } from "./routes/public";
-import { BusinessSetting, Dashboard } from "./routes/private";
+import { BusinessSetting, Dashboard, Step01 } from "./routes/private";
 import PrivateLayout from "./components/layout/private/privateLayout/PrivateLayout";
 import PublicLayout from "./components/layout/public/PublicLayout";
 import ResetPassword from "./routes/public/ResetPassword";
@@ -23,6 +23,9 @@ function App() {
         <Route path={PathConstants.SETTINGS}>
           <Route path={PathConstants.BUSINESS} element={<BusinessSetting />} />
         </Route>
+      </Route>
+      <Route path={PathConstants.ONBOARDING}>
+        <Route path={PathConstants.STEP1} element={<Step01 />} />
       </Route>
     </Routes>
   );

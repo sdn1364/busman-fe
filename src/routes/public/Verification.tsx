@@ -30,9 +30,7 @@ const Verification = () => {
   }
   return (
     <div className="flex w-[500px] flex-col gap-5">
-      <h1 className="mb-2 w-full text-center text-3xl font-bold">
-        Almost There!
-      </h1>
+      <h1 className="mb-2 w-full text-3xl font-bold">Almost There!</h1>
       <p>Hi {state}, </p>
       <p>
         Thanks for signing up! We've just sent you an email to verify your
@@ -42,13 +40,16 @@ const Verification = () => {
       <p>
         If you don't see the email, be sure to checkyour spam or junk folder.
       </p>
-      <p>
-        Still no luck? You can request a new verification email{" "}
-        <a className="text-green-500 underline" href="#">
-          here
-        </a>
-        .
-      </p>
+      <div>
+        <p>Still no luck?</p>
+        <p>
+          You can request a new verification email{" "}
+          <a className="text-green-500 underline" href="#">
+            here
+          </a>
+          .
+        </p>
+      </div>
       <div>
         <p>We're thrilled to have you with us! </p>
         <p>Cheers, </p>
