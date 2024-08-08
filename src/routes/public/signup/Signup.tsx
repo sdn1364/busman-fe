@@ -1,6 +1,4 @@
-import Divider from "@/components/ui/Divider";
-import InputField from "@/components/ui/InputField.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import { Button, Divider, InputField } from "@/components/ui";
 import useSignUp from "@/hooks/auth/useSignup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

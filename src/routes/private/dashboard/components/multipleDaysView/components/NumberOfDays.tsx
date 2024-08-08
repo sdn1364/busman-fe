@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { ActionButton } from "@/components/ui";
 import { Input } from "@/components/ui/input";
 import useCalendar from "@/hooks/useCalendar";
 import {
@@ -15,33 +15,33 @@ const NumberOfDays = () => {
     <div className="numberOfDays absolute right-2 top-1 z-[50]">
       <Popover>
         <PopoverTrigger asChild>
-          <Button size="icon-xs" variant="secondary" className="shadow-md">
+          <ActionButton size="xs" variant="neutral" className="shadow-md">
             <Diff size={10} />
-          </Button>
+          </ActionButton>
         </PopoverTrigger>
         <PopoverContent
           side="left"
           className="-mr-7 flex w-auto flex-row space-x-1 rounded-md bg-slate-200 p-1 shadow-md dark:bg-slate-800"
         >
-          <Button
-            size="icon-xs"
-            variant="secondary"
+          <ActionButton
+            size="xs"
+            variant="neutral"
             onClick={decreaseNumberOfDays}
           >
             <Minus size={10} />
-          </Button>
+          </ActionButton>
           <Input
             className="h-7 w-12 bg-slate-200 px-1 text-center dark:bg-slate-800"
             type="text"
             value={numberOfDays}
           />
-          <Button
-            size="icon-xs"
-            variant="secondary"
+          <ActionButton
+            size="xs"
+            variant="neutral"
             onClick={increaseNumberOfDays}
           >
             <Plus size={10} />
-          </Button>
+          </ActionButton>
         </PopoverContent>
       </Popover>
     </div>

@@ -1,38 +1,22 @@
 import { useTheme } from "@/components/context/theme-provider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
+  Avatar,
+  Button,
+  Drawer,
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
+  Group,
   Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+} from "@/components/ui";
+
+import LogoBlack from "@/assets/logo_black.svg";
+import Logo from "@/assets/logo_white.svg";
 import UseAuth from "@/hooks/auth/useAuth";
 import useLogout from "@/hooks/auth/useLogout";
-import { Bell, ChevronDown, Moon, Sun, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import Logo from "@/assets/logo_white.svg";
-import LogoBlack from "@/assets/logo_black.svg";
-import { useState } from "react";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
-import useGetBusinesses from "@/hooks/business/useGetBusinesses";
 import useBusiness from "@/hooks/business/useBusiness";
+import useGetBusinesses from "@/hooks/business/useGetBusinesses";
+import { Bell, ChevronDown, Moon, Sun, X } from "lucide-react";
+import { useState } from "react";
+import Menus from "./Menus";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
@@ -40,63 +24,43 @@ const TopMenubar = () => {
   const { user } = UseAuth();
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
 
-  const { data, isPending, isSuccess } = useGetBusinesses();
+  const { data, isSuccess } = useGetBusinesses();
   const { business } = useBusiness();
-
-  const navigate = useNavigate();
 
   return (
     <>
-      <Menubar className="justify-between bg-slate-300 py-2 dark:bg-slate-900">
-        <div className="flex flex-row items-center">
+      <Menubar className="justify-between">
+        <Group align="center">
           <img
             src={theme === "light" ? LogoBlack : Logo}
-            height={20}
-            width={20}
+            height={15}
+            width={15}
             className="mx-3"
             alt=""
           />
-          <h2 className="mr-5 font-bold">Elso Manager</h2>
-          <MenubarMenu>
-            <MenubarTrigger>Dashboard</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem onClick={() => navigate("/")}>Calendar</MenubarItem>
-              <MenubarItem>Reports</MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-          <MenubarMenu>
-            <MenubarTrigger>Settings</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem onClick={() => navigate("/settings/business")}>
-                Business
-              </MenubarItem>
-              <MenubarItem>Online booking</MenubarItem>
-              <MenubarItem>Subscription</MenubarItem>
-              <MenubarItem>Locations</MenubarItem>
-              <MenubarItem>Payment</MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-        </div>
+          <h2 className="mr-5 font-extrabold">ELSO</h2>
+          <Menus />
+        </Group>
         <div className="flex flex-row items-center gap-0">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenu.Trigger asChild>
               <Button
                 variant="ghost"
-                className="flex h-10 w-[180px] flex-row justify-around rounded-none border-l border-r bg-slate-300 p-0 dark:bg-slate-900"
+                className="flex h-10 w-[180px] flex-row justify-around rounded-none border-l border-r"
               >
                 {business ? business.name : <span>Current business</span>}
 
                 <ChevronDown size={15} />
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[180px]">
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content className="w-[180px]">
               {isSuccess &&
                 data.map((bus) => (
-                  <DropdownMenuItem key={bus.id}>{bus.name}</DropdownMenuItem>
+                  <DropdownMenu.Item key={bus.id}>{bus.name}</DropdownMenu.Item>
                 ))}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Create new business</DropdownMenuItem>
-            </DropdownMenuContent>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Create new business</DropdownMenu.Item>
+            </DropdownMenu.Content>
           </DropdownMenu>
           <Button
             size="sm"
@@ -115,29 +79,29 @@ const TopMenubar = () => {
             <Bell size={15} />
           </Button>
           <DropdownMenu>
-            <DropdownMenuTrigger className="">
+            <DropdownMenu.Trigger className="">
               <Avatar className="h-10 w-14 rounded-none">
                 {user?.user_metadata?.image && (
-                  <AvatarImage
+                  <Avatar.Image
                     src={user?.user_metadata?.image}
                     alt="user avatar"
                   />
                 )}
-                <AvatarFallback className="bg-slate-300 dark:bg-slate-900">
+                <Avatar.Fallback className="bg-slate-300 dark:bg-slate-900">
                   <span>{user?.user_metadata?.first_name[0]} </span>
                   <span>{user?.user_metadata?.last_name[0]}</span>
-                </AvatarFallback>
+                </Avatar.Fallback>
               </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signout()}>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <DropdownMenu.Label>My Account</DropdownMenu.Label>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item>Settings</DropdownMenu.Item>
+              <DropdownMenu.Separator />
+              <DropdownMenu.Item onClick={() => signout()}>
                 Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
           </DropdownMenu>
         </div>
       </Menubar>
@@ -146,17 +110,17 @@ const TopMenubar = () => {
         onOpenChange={setNotificationOpen}
         direction="right"
       >
-        <DrawerContent className="bottom-0 left-auto right-0 flex h-full w-[400px] flex-col rounded-none rounded-l-[10px]">
-          <DrawerClose className="absolute left-2 top-2" asChild>
+        <Drawer.Content className="bottom-0 left-auto right-0 flex h-full w-[400px] flex-col rounded-none rounded-l-[10px]">
+          <Drawer.Close className="absolute left-2 top-2" asChild>
             <Button variant="ghost" size="icon-sm">
               <X size={15} />
             </Button>
-          </DrawerClose>
-          <DrawerHeader>
-            <DrawerTitle className="text-center">Notifications</DrawerTitle>
-            <DrawerDescription></DrawerDescription>
-          </DrawerHeader>
-        </DrawerContent>
+          </Drawer.Close>
+          <Drawer.Header>
+            <Drawer.Title className="text-center">Notifications</Drawer.Title>
+            <Drawer.Description></Drawer.Description>
+          </Drawer.Header>
+        </Drawer.Content>
       </Drawer>
     </>
   );

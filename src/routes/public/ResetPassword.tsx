@@ -1,6 +1,5 @@
 import Copyright from "@/components/shared/Copyright";
-import { Button } from "@/components/ui/button";
-import InputField from "@/components/ui/InputField";
+import { Button, InputField } from "@/components/ui";
 import { useLocation } from "react-router-dom";
 
 const ResetPassword = () => {

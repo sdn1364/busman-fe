@@ -4,7 +4,7 @@ import { Check, ChevronRight, Circle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const MenubarMenu = MenubarPrimitive.Menu;
+const MenubarMenu = MenubarPrimitive.Menu as typeof MenubarPrimitive.Menu;
 
 const MenubarGroup = MenubarPrimitive.Group;
 
@@ -13,6 +13,10 @@ const MenubarPortal = MenubarPrimitive.Portal;
 const MenubarSub = MenubarPrimitive.Sub;
 
 const MenubarRadioGroup = MenubarPrimitive.RadioGroup;
+
+type MenubarTypes = React.ComponentPropsWithoutRef<
+  typeof MenubarPrimitive.Root
+>;
 
 const Menubar = React.forwardRef<
   React.ElementRef<typeof MenubarPrimitive.Root>,
@@ -26,7 +30,23 @@ const Menubar = React.forwardRef<
     )}
     {...props}
   />
-));
+)) as React.ForwardRefExoticComponent<MenubarTypes> & {
+  Menu: typeof MenubarMenu;
+  Trigger: typeof MenubarTrigger;
+  Content: typeof MenubarContent;
+  Item: typeof MenubarItem;
+  Separator: typeof MenubarSeparator;
+  Label: typeof MenubarLabel;
+  CheckboxItem: typeof MenubarCheckboxItem;
+  RadioGroup: typeof MenubarRadioGroup;
+  RadioItem: typeof MenubarRadioItem;
+  Portal: typeof MenubarPortal;
+  SubContent: typeof MenubarSubContent;
+  SubTrigger: typeof MenubarSubTrigger;
+  Group: typeof MenubarGroup;
+  Sub: typeof MenubarSub;
+  Shortcut: typeof MenubarShortcut;
+};
 Menubar.displayName = MenubarPrimitive.Root.displayName;
 
 const MenubarTrigger = React.forwardRef<
@@ -213,6 +233,22 @@ const MenubarShortcut = ({
   );
 };
 MenubarShortcut.displayname = "MenubarShortcut";
+
+Menubar.Menu = MenubarMenu;
+Menubar.Trigger = MenubarTrigger;
+Menubar.Content = MenubarContent;
+Menubar.Item = MenubarItem;
+Menubar.Separator = MenubarSeparator;
+Menubar.Label = MenubarLabel;
+Menubar.CheckboxItem = MenubarCheckboxItem;
+Menubar.RadioGroup = MenubarRadioGroup;
+Menubar.RadioItem = MenubarRadioItem;
+Menubar.Portal = MenubarPortal;
+Menubar.SubContent = MenubarSubContent;
+Menubar.SubTrigger = MenubarSubTrigger;
+Menubar.Group = MenubarGroup;
+Menubar.Sub = MenubarSub;
+Menubar.Shortcut = MenubarShortcut;
 
 export {
   Menubar,

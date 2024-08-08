@@ -1,6 +1,14 @@
-const Divider = ({ label }: { label: string }) => {
+import { cn } from "@/lib/utils";
+
+const Divider = ({
+  label,
+  className,
+}: {
+  label?: string;
+  className?: string;
+}) => {
   return (
-    <div className="relative py-1">
+    <div className={cn("relative py-1", className)}>
       <div className="absolute inset-0 flex items-center">
         <span className="w-full border-t" />
       </div>
@@ -13,4 +21,4 @@ const Divider = ({ label }: { label: string }) => {
   );
 };
 
-export default Divider;
+export { Divider };

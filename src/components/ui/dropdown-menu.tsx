@@ -4,7 +4,23 @@ import { Check, ChevronRight, Circle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+const DropdownMenu =
+  DropdownMenuPrimitive.Root as typeof DropdownMenuPrimitive.Root & {
+    Trigger: typeof DropdownMenuTrigger;
+    Content: typeof DropdownMenuContent;
+    Item: typeof DropdownMenuItem;
+    CheckboxItem: typeof DropdownMenuCheckboxItem;
+    RadioItem: typeof DropdownMenuRadioItem;
+    Label: typeof DropdownMenuLabel;
+    Separator: typeof DropdownMenuSeparator;
+    Shortcut: typeof DropdownMenuShortcut;
+    Group: typeof DropdownMenuGroup;
+    Portal: typeof DropdownMenuPortal;
+    Sub: typeof DropdownMenuSub;
+    SubContent: typeof DropdownMenuSubContent;
+    SubTrigger: typeof DropdownMenuSubTrigger;
+    RadioGroup: typeof DropdownMenuRadioGroup;
+  };
 
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
@@ -178,6 +194,21 @@ const DropdownMenuShortcut = ({
   );
 };
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
+
+DropdownMenu.Trigger = DropdownMenuTrigger;
+DropdownMenu.Content = DropdownMenuContent;
+DropdownMenu.Item = DropdownMenuItem;
+DropdownMenu.CheckboxItem = DropdownMenuCheckboxItem;
+DropdownMenu.RadioItem = DropdownMenuRadioItem;
+DropdownMenu.Label = DropdownMenuLabel;
+DropdownMenu.Separator = DropdownMenuSeparator;
+DropdownMenu.Shortcut = DropdownMenuShortcut;
+DropdownMenu.Group = DropdownMenuGroup;
+DropdownMenu.Portal = DropdownMenuPortal;
+DropdownMenu.Sub = DropdownMenuSub;
+DropdownMenu.SubContent = DropdownMenuSubContent;
+DropdownMenu.SubTrigger = DropdownMenuSubTrigger;
+DropdownMenu.RadioGroup = DropdownMenuRadioGroup;
 
 export {
   DropdownMenu,

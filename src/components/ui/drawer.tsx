@@ -102,15 +102,25 @@ const DrawerDescription = React.forwardRef<
 ));
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
+Drawer.Portal = DrawerPortal;
+Drawer.Overlay = DrawerOverlay;
+Drawer.Trigger = DrawerTrigger;
+Drawer.Close = DrawerClose;
+Drawer.Content = DrawerContent;
+Drawer.Header = DrawerHeader;
+Drawer.Footer = DrawerFooter;
+Drawer.Title = DrawerTitle;
+Drawer.Description = DrawerDescription;
+
 export {
   Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
   DrawerClose,
   DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
   DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
 };

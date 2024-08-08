@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
+import { Label } from "@radix-ui/react-label";
 import { forwardRef, useId } from "react";
 import { FieldError } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea";
 
 interface InputFieldProps {
   label: string;
@@ -10,17 +10,17 @@ interface InputFieldProps {
   placeholder: string;
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  ({ label, type, error, ...rest }, ref) => {
+const TextAreaField = forwardRef<HTMLTextAreaElement, InputFieldProps>(
+  ({ label, error, ...rest }, ref) => {
     const id = useId();
     return (
       <div>
         <Label htmlFor={id}>{label}</Label>
-        <Input id={id} {...rest} type={type} ref={ref} />
+        <Textarea id={id} {...rest} ref={ref} />
         <p className="mt-1 text-xs text-red-600">{error && error.message}</p>
       </div>
     );
   },
 );
 
-export { InputField };
+export { TextAreaField };

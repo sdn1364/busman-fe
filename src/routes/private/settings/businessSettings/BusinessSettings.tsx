@@ -1,5 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import Page from "@/components/ui/Page";
+import { Page, Tabs } from "@/components/ui";
 import BusinessDetails from "./components/BusinessDetails";
 
 const BusinessSetting = () => {
@@ -29,20 +28,20 @@ const BusinessSetting = () => {
     <Page>
       <div className="w-[1024px]">
         <Tabs defaultValue="details">
-          <TabsList className="w-full justify-start">
+          <Tabs.List className="w-full justify-start">
             {tabs.map((tab) => (
-              <TabsTrigger key={tab.name} value={tab.name.replace(" ", "_")}>
+              <Tabs.Trigger key={tab.name} value={tab.name.replace(" ", "_")}>
                 {tab.name}
-              </TabsTrigger>
+              </Tabs.Trigger>
             ))}
-          </TabsList>
+          </Tabs.List>
           {tabs.map(({ name, component: Component }) => (
-            <TabsContent
+            <Tabs.Content
               key={name + "_" + "content"}
               value={name.replace(" ", "_")}
             >
               <Component />
-            </TabsContent>
+            </Tabs.Content>
           ))}
         </Tabs>
       </div>

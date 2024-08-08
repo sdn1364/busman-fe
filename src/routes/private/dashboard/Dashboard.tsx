@@ -1,6 +1,6 @@
-import Timebar from "./components/Timebar";
-import Calendar from "./components/Calendar";
 import CalendarProvider from "@/components/context/CalendarContext";
+import Calendar from "./components/Calendar";
+import Timebar from "./components/Timebar";
 
 const Dashboard = () => {
   return (

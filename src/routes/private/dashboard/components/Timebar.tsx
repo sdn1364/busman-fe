@@ -1,3 +1,4 @@
+import { ActionButton } from "@/components/ui";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -28,7 +29,7 @@ const Timebar = () => {
       <div className="flex flex-row items-center space-x-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size="xs" variant="secondary" className="space-x-2 text-xs">
+            <Button size="xs" variant="neutral" className="space-x-2">
               <span>{capitilize(calendarView)}</span>
               <ChevronDown size={15} />
             </Button>
@@ -48,15 +49,15 @@ const Timebar = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button size="xs" variant="secondary" className="text-xs">
+        <Button size="xs" variant="neutral">
           Today
         </Button>
-        <Button variant="secondary" size="icon-xs">
+        <ActionButton variant="neutral" size="xs">
           <ChevronLeft size={15} />
-        </Button>
-        <Button variant="secondary" size="icon-xs">
+        </ActionButton>
+        <ActionButton variant="neutral" size="xs">
           <ChevronRight size={15} />
-        </Button>
+        </ActionButton>
       </div>
     </div>
   );

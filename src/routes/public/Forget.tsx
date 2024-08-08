@@ -1,6 +1,5 @@
 import Copyright from "@/components/shared/Copyright";
-import { Button } from "@/components/ui/button";
-import InputField from "@/components/ui/InputField";
+import { Button, InputField } from "@/components/ui";
 import useResetPassword from "@/hooks/auth/useResetPassword";
 import { PathConstants } from "@/PathConstants";
 import { zodResolver } from "@hookform/resolvers/zod";

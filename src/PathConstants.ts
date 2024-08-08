@@ -4,6 +4,7 @@ export const PathConstants = {
   LOGOUT: "logout",
   VERIFICATION: "/verification",
   DASHBOARD: "/",
+  CALENDAR: "",
   TERMS: "/terms",
   PRIVACY: "/privacy",
   SETTINGS: "/settings",

@@ -1,15 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import InputField from "@/components/ui/InputField";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "react-router-dom";
-import useLogin from "@/hooks/auth/useLogin";
-import Divider from "@/components/ui/Divider";
-import { PathConstants } from "@/PathConstants";
-import useAuth from "@/hooks/auth/useAuth";
-import { useEffect } from "react";
 import Logo from "@/assets/logo_white.svg";
+import {
+  Button,
+  Divider,
+  InputField,
+  Stack,
+  Text,
+  Title,
+} from "@/components/ui";
+import { useAuth, useLogin } from "@/hooks";
+import { PathConstants } from "@/PathConstants";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 const LoginSchema = z.object({
   email: z
@@ -51,20 +55,20 @@ const Login = () => {
 
   return (
     <div className="w-96">
-      <div className="flex w-full flex-col items-center gap-5">
+      <Stack gap="md" fullWidth align="center">
         <img src={Logo} alt="elso logo" width="45" />
-        <div>
-          <h1 className="mb-2 w-full text-center text-3xl font-bold">
+        <Stack>
+          <Title order={1} className="mb-2 w-full text-center">
             Welcome to Elso Manager
-          </h1>
-          <h2 className="mb-10 w-full text-center text-xl">
+          </Title>
+          <Title order={3} className="mb-10 w-full text-center text-xl">
             Simple bussiness management
-          </h2>
-        </div>
-      </div>
+          </Title>
+        </Stack>
+      </Stack>
       {isError && <p className="text-center text-red-500">{error.message}</p>}
       <form onSubmit={handleSubmit(signIn)}>
-        <div className="flex h-auto w-96 flex-col gap-5">
+        <Stack fullWidth gap="md">
           <InputField
             error={errors.email}
             label="Email"
@@ -90,9 +94,9 @@ const Login = () => {
           </Button>
           <Divider label="Or continue with" />
           <Button variant="outline">Login with Google</Button>
-        </div>
+        </Stack>
       </form>
-      <p className="py-5 text-center">
+      <Text className="py-5" ta="center">
         New to Elso Manager?{" "}
         <Link
           to={PathConstants.REGISTER}
@@ -100,8 +104,8 @@ const Login = () => {
         >
           Sign up here
         </Link>
-      </p>
-      <p className="mt-5 px-8 text-center text-sm text-muted-foreground">
+      </Text>
+      <Text size="sm" ta="center" className="mt-5 px-8 text-muted-foreground">
         By clicking continue, you agree to our{" "}
         <Link
           to={PathConstants.TERMS}
@@ -117,7 +121,7 @@ const Login = () => {
           Privacy Policy
         </Link>
         .
-      </p>
+      </Text>
     </div>
   );
 };

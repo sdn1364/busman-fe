@@ -17,7 +17,7 @@ const Column = forwardRef<HTMLDivElement, Props>(
           "absolute top-0 flex snap-start flex-col border-r",
           (day.day() !== 6 || day.day() !== 0) && "bg-background",
           (day.day() === 6 || day.day() === 0) &&
-            "bg-slate-100 dark:bg-gray-900",
+            "bg-slate-100 dark:bg-slate-900",
         )}
         style={{
           width: "var(--single-day-width)",

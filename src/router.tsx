@@ -1,37 +1,88 @@
-import { createBrowserRouter } from "react-router-dom";
-import PrivateLayout from "@/components/layout/private/PrivateLayout.tsx";
-import PublicLayout from "@/components/layout/public/PublicLayout.tsx";
-import Login from "@/routes/public/Login.tsx";
-import SignUp from "@/routes/public/Signup.tsx";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import App from "./App";
+import {
+  OnboardingLayout,
+  PrivateLayout,
+  PublicLayout,
+} from "./components/layout";
+import { PathConstants } from "./PathConstants";
+import ErrorElement from "./routes/ErrorElement";
+import { BusinessSetting, Dashboard, Step01 } from "./routes/private";
+import {
+  Forget,
+  Login,
+  ResetPassword,
+  Singup,
+  Verification,
+} from "./routes/public";
 
 export const router = createBrowserRouter([
   {
     id: "root",
     path: "/",
+    element: <App />,
+    errorElement: <ErrorElement />,
     children: [
       {
         id: "publicLayout",
         element: <PublicLayout />,
         children: [
           {
-            index: true,
-            path: "/",
-            element: <div>this is home</div>,
-          },
-          {
-            path: "/login",
+            path: PathConstants.LOGIN,
             element: <Login />,
           },
           {
-            path: "/signup",
-            element: <SignUp />,
+            path: PathConstants.REGISTER,
+            element: <Singup />,
+          },
+          {
+            path: PathConstants.VERIFICATION,
+            element: <Verification />,
+          },
+          {
+            path: PathConstants.FORGETPASS,
+            element: <Forget />,
           },
         ],
       },
       {
         id: "privateLayout",
         element: <PrivateLayout />,
-        children: [],
+        children: [
+          {
+            path: PathConstants.RESETPASSWORD,
+            element: <ResetPassword />,
+          },
+          {
+            path: PathConstants.DASHBOARD,
+            element: <Outlet />,
+            children: [
+              {
+                index: true,
+                element: <Dashboard />,
+              },
+            ],
+          },
+          {
+            path: PathConstants.SETTINGS,
+            children: [
+              {
+                path: PathConstants.BUSINESS,
+                element: <BusinessSetting />,
+              },
+            ],
+          },
+          {
+            path: PathConstants.ONBOARDING,
+            element: <OnboardingLayout />,
+            children: [
+              {
+                path: PathConstants.STEP1,
+                element: <Step01 />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

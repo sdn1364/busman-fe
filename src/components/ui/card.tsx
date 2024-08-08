@@ -2,19 +2,26 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-sm border bg-card text-card-foreground shadow-sm",
-      className,
-    )}
-    {...props}
-  />
-));
+type CardProps = React.HTMLAttributes<HTMLDivElement>;
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-sm border bg-card text-card-foreground shadow-sm",
+        className,
+      )}
+      {...props}
+    />
+  ),
+) as React.ForwardRefExoticComponent<CardProps> & {
+  Header: typeof CardHeader;
+  Title: typeof CardTitle;
+  Footer: typeof CardFooter;
+  Description: typeof CardDescription;
+  Content: typeof CardContent;
+};
 Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
@@ -75,6 +82,12 @@ const CardFooter = React.forwardRef<
   />
 ));
 CardFooter.displayName = "CardFooter";
+
+Card.Header = CardHeader;
+Card.Title = CardTitle;
+Card.Footer = CardFooter;
+Card.Description = CardDescription;
+Card.Content = CardContent;
 
 export {
   Card,
