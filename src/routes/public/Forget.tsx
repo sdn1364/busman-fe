@@ -1,5 +1,5 @@
 import Copyright from "@/components/shared/Copyright";
-import { Button, InputField } from "@/components/ui";
+import { Button, InputField, Stack, Text, Title } from "@/components/ui";
 import useResetPassword from "@/hooks/auth/useResetPassword";
 import { PathConstants } from "@/PathConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,18 +33,20 @@ const Forget = () => {
   };
   if (isSuccess) {
     return (
-      <div className="flex w-[400px] flex-col gap-5">
-        <h1 className="mb-2 w-full text-3xl font-bold">Check Your Inbox</h1>
-        <p>
+      <Stack className="w-[400px]" align="center">
+        <Title order={1} className="mb-2">
+          Check Your Inbox
+        </Title>
+        <Text>
           We've sent you an email with a link to reset your password. Please
           check your inbox and follow the instructions in the email.
-        </p>
-        <p>
+        </Text>
+        <Text>
           If you don't see the email, be sure to check your spam or junk folder.
-        </p>
-        <div>
-          <p>Still no luck?</p>
-          <p>
+        </Text>
+        <Stack>
+          <Text>Still no luck?</Text>
+          <Text>
             You can request a new reset link{" "}
             <a
               className="text-green-500 underline"
@@ -53,43 +55,49 @@ const Forget = () => {
               here
             </a>
             .
-          </p>
-        </div>
+          </Text>
+        </Stack>
         <p>
           If you have any questions or need further assistance, feel free to
           reach out to our support team.
         </p>
         <p>Best,</p>
         <Copyright />
-      </div>
+      </Stack>
     );
   }
 
   return (
-    <div className="flex w-[400px] flex-col gap-5">
-      <h1 className="mb-2 w-full text-3xl font-bold">Forgot Your Password?</h1>
-      <p>
+    <Stack className="w-[400px]">
+      <Title order={1} className="mb-2">
+        Forgot Your Password?
+      </Title>
+      <Text>
         No worries! Just enter your email address below, and we’ll send you a
         link to reset your password.
-      </p>
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col gap-5">
-        {isError && <p className="text-center text-red-500">{error.message}</p>}
+      </Text>
+      <form onSubmit={handleSubmit(submit)}>
+        <Stack>
+          {isError && (
+            <p className="text-center text-red-500">{error.message}</p>
+          )}
 
-        <InputField
-          {...register("email")}
-          error={errors.email}
-          label="Email"
-          placeholder="Email"
-          type="email"
-        />
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Sending reset password email..." : "Reset password"}
-        </Button>
+          <InputField
+            {...register("email")}
+            error={errors.email}
+            label="Email"
+            placeholder="Email"
+            type="email"
+          />
+          <Button type="submit" loading={isPending}>
+            {isPending ? "Sending reset password email..." : "Reset password"}
+          </Button>
+        </Stack>
       </form>
-      <p>Need help? Feel free to reach out to our support team.</p>
-      <p>Best,</p>
+      <Text>Need help? Feel free to reach out to our support team.</Text>
+      <Text>Best,</Text>
       <Copyright />
-    </div>
+    </Stack>
   );
 };
 

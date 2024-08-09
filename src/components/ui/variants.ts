@@ -17,6 +17,7 @@ export const flexBoxVariants = {
     stretch: "items-stretch",
   },
   gap: {
+    0: "gap-0",
     xs: "gap-2",
     sm: "gap-4",
     md: "gap-6",

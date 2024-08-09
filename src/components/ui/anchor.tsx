@@ -1,34 +1,29 @@
 import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
-import { ElementType, ReactNode } from "react";
 import { textVariants } from "./variants";
 
 const AnchorVariants = cva(
-  "dark:text-green-600 text-green-700 hover:text-green-600 cursor-pointer",
+  "text-primary font-light hover:underline cursor-pointer",
   {
     variants: textVariants,
-    defaultVariants: {
-      td: "underline",
-    },
   },
 );
 
-interface Anchor extends VariantProps<typeof AnchorVariants> {
-  children: ReactNode;
+interface AnchorProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    VariantProps<typeof AnchorVariants> {
   className?: string;
-  component?: ElementType;
+  asChild?: boolean;
 }
 
-const Anchor = ({
-  children,
-  className,
-  component: Component = "a",
-  ...rest
-}: Anchor) => {
+const Anchor = ({ className, asChild, ...props }: AnchorProps) => {
+  const Component = asChild ? Slot : "a";
   return (
-    <Component className={cn(AnchorVariants({ className, ...rest }))} {...rest}>
-      {children}
-    </Component>
+    <Component
+      className={cn(AnchorVariants({ className, ...props }))}
+      {...props}
+    />
   );
 };
 

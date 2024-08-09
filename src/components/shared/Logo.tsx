@@ -1,13 +1,27 @@
 import { cn } from "@/lib/utils";
+import { useTheme } from "../context/theme-provider";
 
-const Logo = ({ width, height, className }: { [key: string]: string }) => {
+const Logo = ({
+  size = 40,
+  className,
+}: {
+  className?: string;
+  size?: number;
+}) => {
+  const { theme } = useTheme();
+
   return (
     <svg
-      width={width}
-      height={height}
+      width={size}
+      height={size}
       viewBox="0 0 25 25"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn(className)}
+      className={cn(
+        theme === "light" && "fill-slate-900",
+        theme === "dark" && "fill-slate-100",
+        className,
+      )}
+      fill="fill-current"
     >
       <g clipPath="url(#clip0_385_134)">
         <path

@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
 import { textVariants } from "./variants";
 
-const textComponentVariants = cva("", {
+const textComponentVariants = cva("font-light", {
   variants: textVariants,
   defaultVariants: {
     size: "md",

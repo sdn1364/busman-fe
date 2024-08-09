@@ -1,7 +1,8 @@
-import { Label } from "@radix-ui/react-label";
 import { forwardRef, useId } from "react";
 import { FieldError } from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
+import { Label } from "./label";
+import { Text } from "./text";
+import { Textarea } from "./textarea";
 
 interface InputFieldProps {
   label: string;
@@ -17,7 +18,9 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, InputFieldProps>(
       <div>
         <Label htmlFor={id}>{label}</Label>
         <Textarea id={id} {...rest} ref={ref} />
-        <p className="mt-1 text-xs text-red-600">{error && error.message}</p>
+        <Text className="mt-1 text-destructive" size="xs">
+          {error && error.message}
+        </Text>
       </div>
     );
   },

@@ -8,8 +8,7 @@ import {
   Menubar,
 } from "@/components/ui";
 
-import LogoBlack from "@/assets/logo_black.svg";
-import Logo from "@/assets/logo_white.svg";
+import Logo from "@/components/shared/Logo";
 import UseAuth from "@/hooks/auth/useAuth";
 import useLogout from "@/hooks/auth/useLogout";
 import useBusiness from "@/hooks/business/useBusiness";
@@ -31,17 +30,11 @@ const TopMenubar = () => {
     <>
       <Menubar className="justify-between">
         <Group align="center">
-          <img
-            src={theme === "light" ? LogoBlack : Logo}
-            height={15}
-            width={15}
-            className="mx-3"
-            alt=""
-          />
-          <h2 className="mr-5 font-extrabold">ELSO</h2>
+          <Logo size={15} className="mx-3" />
+          {/* <h2 className="mr-5 font-extrabold">ELSO</h2> */}
           <Menus />
         </Group>
-        <div className="flex flex-row items-center gap-0">
+        <Group align="center" gap={0}>
           <DropdownMenu>
             <DropdownMenu.Trigger asChild>
               <Button
@@ -79,7 +72,7 @@ const TopMenubar = () => {
             <Bell size={15} />
           </Button>
           <DropdownMenu>
-            <DropdownMenu.Trigger className="">
+            <DropdownMenu.Trigger>
               <Avatar className="h-10 w-14 rounded-none">
                 {user?.user_metadata?.image && (
                   <Avatar.Image
@@ -103,7 +96,7 @@ const TopMenubar = () => {
               </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
-        </div>
+        </Group>
       </Menubar>
       <Drawer
         open={notificationOpen}
