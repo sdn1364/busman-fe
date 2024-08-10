@@ -1,9 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import dayjs from "dayjs";
-import { twMerge } from "tailwind-merge";
+import dayOfYear from "dayjs/plugin/dayOfYear";
 import updateLocale from "dayjs/plugin/updateLocale";
 import weekday from "dayjs/plugin/weekday";
-import dayOfYear from "dayjs/plugin/dayOfYear";
+import { twMerge } from "tailwind-merge";
 
 dayjs.extend(weekday);
 dayjs.extend(updateLocale);
@@ -138,5 +138,30 @@ export const createDaysCalendar = (numberOfDays: number) => {
     days.push(startOfWeek.add(i, "day"));
   }
 
+  return days;
+};
+
+export const createWeek = (startOfweek: dayjs.Dayjs) => {
+  const week = [];
+  for (let i = 0; i < 7; i++) {
+    week.push(startOfweek.add(i, "day"));
+  }
+  return week;
+};
+
+export const createMonthCalendar = () => {
+  const margin: number = 5;
+  const days: dayjs.Dayjs[][] = [];
+
+  // initial array should have 6 arrays of 7
+  // and add or remove one array by scroll
+  for (let i = -margin; i < 0; i++) {
+    const startOfWeek = now.add(i, "week").startOf("week");
+    days.push(createWeek(startOfWeek));
+  }
+  for (let i = 0; i < 6 + margin; i++) {
+    const startOfWeek = now.add(i, "week").startOf("week");
+    days.push(createWeek(startOfWeek));
+  }
   return days;
 };

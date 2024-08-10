@@ -1,7 +1,7 @@
 import useCalendar from "@/hooks/useCalendar";
-import MultipleDaysView from "./multipleDaysView/MultipleDaysView";
-import MonthView from "./monthView/MonthView";
 import { CSSProperties } from "react";
+import MonthView from "./monthView/MonthView";
+import MultipleDaysView from "./multipleDaysView/MultipleDaysView";
 import useDays from "./multipleDaysView/useDays";
 
 const Calendar = () => {
@@ -23,8 +23,9 @@ const Calendar = () => {
         ...styles,
       }}
     >
-      {calendarView === "week" && <MultipleDaysView />}
-      {calendarView === "year" && <MonthView />}
+      <MonthView />
+      {calendarView === "1" && <MultipleDaysView />}
+      {calendarView === "2" && <MonthView />}
     </div>
   );
 };
