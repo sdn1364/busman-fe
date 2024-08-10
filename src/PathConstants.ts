@@ -16,4 +16,5 @@ export const PathConstants = {
   STEP2: "step02",
   STEP3: "step03",
   STEP4: "step04",
+  WEEK: "week",
 };

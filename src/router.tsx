@@ -1,13 +1,15 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./App";
 import {
   OnboardingLayout,
   PrivateLayout,
   PublicLayout,
 } from "./components/layout";
+import CalendarLayout from "./components/layout/private/calendarLayout/CalendarLayout";
 import { PathConstants } from "./PathConstants";
 import ErrorElement from "./routes/ErrorElement";
-import { BusinessSetting, Dashboard, Step01 } from "./routes/private";
+import { BusinessSetting, Step01 } from "./routes/private";
+import Week from "./routes/private/calendar/week/Week";
 import {
   Forget,
   Login,
@@ -54,12 +56,17 @@ export const router = createBrowserRouter([
             element: <ResetPassword />,
           },
           {
+            id: "calendarLayout",
             path: PathConstants.DASHBOARD,
-            element: <Outlet />,
+            element: <CalendarLayout />,
             children: [
               {
                 index: true,
-                element: <Dashboard />,
+                element: <Navigate to={PathConstants.WEEK} replace />,
+              },
+              {
+                path: PathConstants.WEEK,
+                element: <Week />,
               },
             ],
           },

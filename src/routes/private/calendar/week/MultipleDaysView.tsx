@@ -1,9 +1,9 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import useMultipleDaysView from "./useMultipleDaysView";
-import NumberOfDays from "./components/NumberOfDays";
 import AllDays from "./components/AllDays";
 import DayHeaders from "./components/DayHeaders";
+import NumberOfDays from "./components/NumberOfDays";
 import Times from "./components/Times";
+import useMultipleDaysView from "./useMultipleDaysView";
 
 const MultipleDaysView = () => {
   const {
@@ -20,7 +20,7 @@ const MultipleDaysView = () => {
         ref={containerRef}
         className="relative snap-none"
         style={{
-          // width: "var(--all-days-calendar)",
+          width: "var(--all-days-calendar)",
           height: "calc(100vh - 96px)",
         }}
         onScroll={handleOnScroll}

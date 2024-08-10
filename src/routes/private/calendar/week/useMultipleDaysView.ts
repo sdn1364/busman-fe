@@ -11,7 +11,6 @@ const useMultipleDaysView = () => {
   const { numberOfDays } = useCalendar();
   const containerRef = useRef<HTMLDivElement>(null);
   const [oldScrollPosition, setOldScrollPosition] = useState<number>(0);
-  const { currentDate, setCurrentDate } = useCalendar();
 
   const tempDays = useRef<dayjs.Dayjs[]>(createDaysCalendar(numberOfDays));
 
@@ -25,43 +24,49 @@ const useMultipleDaysView = () => {
       setOldScrollPosition(currentScrollPoint! / singleDayWidth);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentScrollPoint, numberOfDays]);
+  }, [numberOfDays]);
 
   useEffect(() => {
     tempDays.current = createDaysCalendar(numberOfDays);
   }, [numberOfDays]);
 
+  const calendarScrollwidth = numberOfDaysInTheCalendar! * singleDayWidth;
+
   const handleOnScroll = () => {
     const container = containerRef.current;
 
-    if (container) {
-      const scrollPosition = Math.floor(container.scrollLeft / singleDayWidth);
-      const days = [...tempDays.current];
+    if (!container) return null;
 
-      if (!oldScrollPosition) {
-        return null;
-      }
+    const scrollPosition = Math.floor(container.scrollLeft / singleDayWidth);
+    const days = [...tempDays.current];
 
-      if (oldScrollPosition - scrollPosition >= 1) {
-        days.pop();
-        days.unshift(days[0].subtract(1, "day"));
-      }
-
-      if (scrollPosition - oldScrollPosition >= 1) {
-        days.shift();
-        days.push(dayjs(days[days.length - 1]).add(1, "day"));
-      }
-
+    if (oldScrollPosition === null) {
       setOldScrollPosition(scrollPosition);
-
-      if (!currentDate.isSame(days[4])) {
-        setCurrentDate(days[4]);
-      }
-      tempDays.current = days;
+      return;
     }
-  };
 
-  const calendarScrollwidth = numberOfDaysInTheCalendar! * singleDayWidth;
+    const scrollDiff = scrollPosition - oldScrollPosition;
+
+    if (scrollDiff !== 0) {
+      if (scrollDiff > 0) {
+        // Scrolling to the right
+        for (let i = 0; i < scrollDiff; i++) {
+          days.shift();
+          days.push(dayjs(days[days.length - 1]).add(1, "day"));
+        }
+      } else if (scrollDiff < 0) {
+        // Scrolling to the left
+        for (let i = 0; i < Math.abs(scrollDiff); i++) {
+          days.pop();
+          days.unshift(days[0].subtract(1, "day"));
+        }
+      }
+    }
+
+    setOldScrollPosition(scrollPosition);
+
+    tempDays.current = days;
+  };
 
   return {
     containerRef,

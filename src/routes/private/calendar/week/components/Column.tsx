@@ -14,7 +14,7 @@ const Column = forwardRef<HTMLDivElement, Props>(
         data-grid-date={day.valueOf()}
         ref={ref}
         className={cn(
-          "absolute top-0 flex snap-start flex-col border-r",
+          "absolute top-0 flex snap-start snap-always scroll-ms-14 flex-col border-r",
           (day.day() !== 6 || day.day() !== 0) && "bg-background",
           (day.day() === 6 || day.day() === 0) &&
             "bg-slate-100 dark:bg-slate-900",

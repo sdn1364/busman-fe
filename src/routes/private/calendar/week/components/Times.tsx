@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 const Times = () => {
   return (
     <div
-      className="times sticky -left-px top-0 z-[30] w-14 border-r bg-background"
+      className="times sticky -left-px top-0 z-[30] w-14 border-r bg-red-500/10"
       style={{
         height: "var(--column-height)",
         marginTop: "calc(-1 * var(--day-header-height))",

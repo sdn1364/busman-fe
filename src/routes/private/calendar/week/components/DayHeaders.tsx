@@ -1,6 +1,6 @@
 import { cn, now } from "@/lib/utils";
-import useDays from "../useDays";
 import dayjs from "dayjs";
+import useDays from "../useDays";
 
 const DayHeaders = ({ days }: { days: dayjs.Dayjs[] }) => {
   const { baseScrollPosition, singleDayWidth } = useDays(days);
@@ -34,7 +34,7 @@ const DayHeaders = ({ days }: { days: dayjs.Dayjs[] }) => {
                 <p
                   className={`text-3xl ${now.isSame(day, "day") ? "font-bold text-red-500" : "font-light"}`}
                 >
-                  {day.format("D")}
+                  {day.format("D")}-{day.format("MMM")}
                 </p>
                 <p className="text-sm font-light">{day.format("ddd")}</p>
               </div>

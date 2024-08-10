@@ -1,14 +1,23 @@
-import { ActionButton, Button, DropdownMenu, Text } from "@/components/ui";
-import useCalendar from "@/hooks/useCalendar";
-import { capitilize } from "@/lib/utils";
+import {
+  ActionButton,
+  Button,
+  DropdownMenu,
+  Group,
+  Text,
+} from "@/components/ui";
+import { capitilize, now } from "@/lib/utils";
 import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 dayjs.extend(weekOfYear);
 
 const Timebar = () => {
-  const { calendarView, setCalendarView, currentDate } = useCalendar();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log(location);
   const calendarViews = [
     { id: 1, name: "day" },
     { id: 2, name: "week" },
@@ -16,19 +25,19 @@ const Timebar = () => {
   ];
 
   return (
-    <div className="timebar flex h-14 w-full flex-row items-center justify-between border-b px-5 py-2">
-      <div className="flex flex-row items-baseline gap-1">
+    <Group align="center" justify="between" className="h-14 border-b px-5 py-2">
+      <Group align="center">
         <Text fw="extrabold" className="text-3xl">
-          {currentDate.format("MMMM")}
+          {now.format("MMMM")}
         </Text>
-        <Text className="text-xl font-bold">{currentDate.format("YYYY")}</Text>
-        {calendarView === "week" && (
+        <Text className="text-xl font-bold">{now.format("YYYY")}</Text>
+        {location.pathname === "week" && (
           <Text size="xs" className="ml-1 text-slate-500 dark:text-slate-400">
-            Week {currentDate.week()}
+            Week {now.week()}
           </Text>
         )}
-      </div>
-      <div className="flex flex-row items-center space-x-2">
+      </Group>
+      <Group align="center">
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
             <Button size="xs" variant="neutral" className="space-x-2">
@@ -41,7 +50,7 @@ const Timebar = () => {
               <DropdownMenu.Item
                 key={view.id}
                 className="capitalize"
-                onClick={() => setCalendarView(view.name)}
+                onClick={() => navigate(view.name)}
               >
                 {view.name}
               </DropdownMenu.Item>
@@ -57,8 +66,8 @@ const Timebar = () => {
         <ActionButton variant="neutral" size="xs">
           <ChevronRight size={15} />
         </ActionButton>
-      </div>
-    </div>
+      </Group>
+    </Group>
   );
 };
 
