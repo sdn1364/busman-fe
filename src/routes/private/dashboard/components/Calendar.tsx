@@ -23,9 +23,8 @@ const Calendar = () => {
         ...styles,
       }}
     >
-      <MonthView />
-      {calendarView === "1" && <MultipleDaysView />}
-      {calendarView === "2" && <MonthView />}
+      {calendarView === "week" && <MultipleDaysView />}
+      {calendarView === "month" && <MonthView />}
     </div>
   );
 };

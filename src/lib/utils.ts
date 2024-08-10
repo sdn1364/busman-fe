@@ -153,8 +153,8 @@ export const createMonthCalendar = () => {
   const margin: number = 5;
   const days: dayjs.Dayjs[][] = [];
 
-  // initial array should have 6 arrays of 7
-  // and add or remove one array by scroll
+  // factor in the current monthS
+
   for (let i = -margin; i < 0; i++) {
     const startOfWeek = now.add(i, "week").startOf("week");
     days.push(createWeek(startOfWeek));

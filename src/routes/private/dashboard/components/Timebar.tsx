@@ -1,11 +1,4 @@
-import { ActionButton } from "@/components/ui";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { ActionButton, Button, DropdownMenu, Text } from "@/components/ui";
 import useCalendar from "@/hooks/useCalendar";
 import { capitilize } from "@/lib/utils";
 import dayjs from "dayjs";
@@ -15,39 +8,45 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 dayjs.extend(weekOfYear);
 
 const Timebar = () => {
-  const { calendarView, setCalendarView } = useCalendar();
+  const { calendarView, setCalendarView, currentDate } = useCalendar();
+  const calendarViews = [
+    { id: 1, name: "day" },
+    { id: 2, name: "week" },
+    { id: 3, name: "month" },
+  ];
 
   return (
     <div className="timebar flex h-14 w-full flex-row items-center justify-between border-b px-5 py-2">
       <div className="flex flex-row items-baseline gap-1">
-        <p className="text-3xl font-[800]">{dayjs().format("MMMM")}</p>
-        <p className="text-xl font-bold">{dayjs().year()}</p>
-        <p className="light:text-gray-400 ml-1 text-xs dark:text-gray-600">
-          Week {dayjs().week()}
-        </p>
+        <Text fw="extrabold" className="text-3xl">
+          {currentDate.format("MMMM")}
+        </Text>
+        <Text className="text-xl font-bold">{currentDate.format("YYYY")}</Text>
+        {calendarView === "week" && (
+          <Text size="xs" className="ml-1 text-slate-500 dark:text-slate-400">
+            Week {currentDate.week()}
+          </Text>
+        )}
       </div>
       <div className="flex flex-row items-center space-x-2">
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenu.Trigger asChild>
             <Button size="xs" variant="neutral" className="space-x-2">
               <span>{capitilize(calendarView)}</span>
               <ChevronDown size={15} />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => setCalendarView("day")}>
-              Day
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setCalendarView("week")}>
-              Week
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setCalendarView("month")}>
-              Month
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setCalendarView("year")}>
-              Year
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            {calendarViews.map((view) => (
+              <DropdownMenu.Item
+                key={view.id}
+                className="capitalize"
+                onClick={() => setCalendarView(view.name)}
+              >
+                {view.name}
+              </DropdownMenu.Item>
+            ))}
+          </DropdownMenu.Content>
         </DropdownMenu>
         <Button size="xs" variant="neutral">
           Today

@@ -11,6 +11,7 @@ const useMultipleDaysView = () => {
   const { numberOfDays } = useCalendar();
   const containerRef = useRef<HTMLDivElement>(null);
   const [oldScrollPosition, setOldScrollPosition] = useState<number>(0);
+  const { currentDate, setCurrentDate } = useCalendar();
 
   const tempDays = useRef<dayjs.Dayjs[]>(createDaysCalendar(numberOfDays));
 
@@ -32,6 +33,7 @@ const useMultipleDaysView = () => {
 
   const handleOnScroll = () => {
     const container = containerRef.current;
+
     if (container) {
       const scrollPosition = Math.floor(container.scrollLeft / singleDayWidth);
       const days = [...tempDays.current];
@@ -49,8 +51,12 @@ const useMultipleDaysView = () => {
         days.shift();
         days.push(dayjs(days[days.length - 1]).add(1, "day"));
       }
+
       setOldScrollPosition(scrollPosition);
 
+      if (!currentDate.isSame(days[4])) {
+        setCurrentDate(days[4]);
+      }
       tempDays.current = days;
     }
   };
