@@ -12,7 +12,7 @@ const NumberOfDays = () => {
   const { increaseNumberOfDays, decreaseNumberOfDays, numberOfDays } =
     useCalendar();
   return (
-    <div className="numberOfDays absolute right-2 top-1 z-[50]">
+    <div className="absolute right-2 top-1 z-[50]">
       <Popover>
         <PopoverTrigger asChild>
           <ActionButton size="xs" variant="neutral" className="shadow-md">

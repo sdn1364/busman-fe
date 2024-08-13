@@ -6,6 +6,7 @@ export { Card } from "./card";
 export { Divider } from "./divider";
 export { Drawer } from "./drawer";
 export { DropdownMenu } from "./dropdown-menu";
+export { Fieldset } from "./Fieldset";
 export { Group } from "./group";
 export { InputField } from "./inputField";
 export { Menubar } from "./menubar";

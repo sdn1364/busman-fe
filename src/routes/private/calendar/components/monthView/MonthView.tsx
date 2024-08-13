@@ -1,11 +1,10 @@
 import { Text } from "@/components/ui";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useCalendar } from "@/hooks";
-import { cn, createMonthCalendar, createWeek } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import isToday from "dayjs/plugin/isToday";
 import { useEffect, useRef, useState } from "react";
-import useWeek from "./useWeek";
+import useWeek from "./useMonth";
 
 dayjs.extend(isToday);
 
@@ -13,7 +12,6 @@ const MonthView = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const weeks = useRef<dayjs.Dayjs[][]>(createMonthCalendar());
   const [oldScrollPosition, setOldScrollPosition] = useState<number>(0);
-  const { currentDate, setCurrentDate } = useCalendar();
 
   const {
     calendarScrollHeight,
@@ -122,3 +120,6 @@ const MonthView = () => {
 };
 
 export default MonthView;
+function createMonthCalendar(): dayjs.Dayjs[][] {
+  throw new Error("Function not implemented.");
+}

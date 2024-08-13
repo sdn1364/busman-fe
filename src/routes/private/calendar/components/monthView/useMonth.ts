@@ -1,7 +1,7 @@
-import { now } from "@/lib/utils";
+import { now } from "@/lib/dayjs";
 import dayjs from "dayjs";
 
-const useWeek = (weeks: dayjs.Dayjs[][]) => {
+const useMonth = (weeks: dayjs.Dayjs[][]) => {
   const startDate: dayjs.Dayjs = dayjs("2005-1-1");
   const endDate: dayjs.Dayjs = dayjs("2040-12-29");
 
@@ -34,4 +34,4 @@ const useWeek = (weeks: dayjs.Dayjs[][]) => {
   };
 };
 
-export default useWeek;
+export default useMonth;

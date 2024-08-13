@@ -1,10 +1,10 @@
+import WithAuth from "@/routes/WithAuth";
 import { Outlet } from "react-router-dom";
 import TopMenubar from "./components/Menubar";
-import WithAuth from "@/routes/WithAuth";
 
 const PrivateLayout = WithAuth(() => {
   return (
-    <div>
+    <div className="h-screen w-screen overflow-hidden">
       <TopMenubar />
       <Outlet />
     </div>

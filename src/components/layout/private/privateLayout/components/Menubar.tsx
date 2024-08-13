@@ -1,5 +1,5 @@
-import { useTheme } from "@/components/context/theme-provider";
 import {
+  ActionButton,
   Avatar,
   Button,
   Drawer,
@@ -13,13 +13,14 @@ import UseAuth from "@/hooks/auth/useAuth";
 import useLogout from "@/hooks/auth/useLogout";
 import useBusiness from "@/hooks/business/useBusiness";
 import useGetBusinesses from "@/hooks/business/useGetBusinesses";
+import useTheme from "@/hooks/useTheme";
 import { Bell, ChevronDown, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
 import Menus from "./Menus";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
-  const { setTheme, theme } = useTheme();
+  const { handleTheme, theme } = useTheme();
   const { user } = UseAuth();
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
 
@@ -59,7 +60,7 @@ const TopMenubar = () => {
             size="sm"
             variant="ghost"
             className="h-10 w-10 rounded-none border-r"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            onClick={() => handleTheme(theme === "light" ? "dark" : "light")}
           >
             {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
           </Button>
@@ -105,9 +106,9 @@ const TopMenubar = () => {
       >
         <Drawer.Content className="bottom-0 left-auto right-0 flex h-full w-[400px] flex-col rounded-none rounded-l-[10px]">
           <Drawer.Close className="absolute left-2 top-2" asChild>
-            <Button variant="ghost" size="icon-sm">
+            <ActionButton variant="ghost" size="sm">
               <X size={15} />
-            </Button>
+            </ActionButton>
           </Drawer.Close>
           <Drawer.Header>
             <Drawer.Title className="text-center">Notifications</Drawer.Title>

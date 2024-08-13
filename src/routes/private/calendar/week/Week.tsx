@@ -1,47 +1,42 @@
-import { ScrollBar } from "@/components/ui/scroll-area";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import AllDays from "./components/AllDays";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useCalendar } from "@/hooks";
+import { CSSProperties } from "react";
 import DayHeaders from "./components/DayHeaders";
 import NumberOfDays from "./components/NumberOfDays";
 import Times from "./components/Times";
-import useMultipleDaysView from "./useMultipleDaysView";
+import VisibleCalendar from "./components/VisibleCalendar";
+import useWeek from "./useWeek";
 
 const Week = () => {
-  const {
-    tempDays: days,
-    containerRef,
-    handleOnScroll,
-    calendarScrollwidth,
-  } = useMultipleDaysView();
+  const { weekCalendar, widthOfwholeCalendar, containerRef } = useWeek();
+  const { numberOfDays } = useCalendar();
+
+  const styles = {
+    "--single-day-width": `calc(100vw / ${numberOfDays})`,
+    "--single-day-height": "calc(100vh - 56px)",
+    "--tick-height": "4px",
+    "--day-header-height": "56px",
+  } as CSSProperties;
 
   return (
-    <div className="scroll-parent relative flex h-full w-full">
+    <div className="relative" style={styles}>
       <NumberOfDays />
       <ScrollArea
         ref={containerRef}
-        className="relative snap-none"
+        className="relative"
         style={{
-          width: "var(--all-days-calendar)",
-          height: "calc(100vh - 96px)",
+          height: "var(--single-day-height)",
         }}
-        onScroll={handleOnScroll}
       >
         <div
-          className="scroll-container relative block"
+          className="relative block h-full"
           style={{
-            width: calendarScrollwidth,
-            height: "var(--column-height)",
+            width: widthOfwholeCalendar,
           }}
         >
-          <div
-            className="sticky -left-px top-0 z-[50] w-14 border-b border-r bg-background"
-            style={{
-              height: "var(--day-header-height)",
-            }}
-          ></div>
-          <DayHeaders days={days.current} />
+          <DayHeaders days={weekCalendar} />
           <Times />
-          <AllDays days={days.current} />
+          <VisibleCalendar days={weekCalendar} />
         </div>
         <ScrollBar className="hidden" orientation="horizontal" />
         <ScrollBar className="hidden" orientation="vertical" />

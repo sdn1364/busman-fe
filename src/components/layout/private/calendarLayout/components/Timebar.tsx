@@ -5,19 +5,14 @@ import {
   Group,
   Text,
 } from "@/components/ui";
-import { capitilize, now } from "@/lib/utils";
-import dayjs from "dayjs";
-import weekOfYear from "dayjs/plugin/weekOfYear";
+import { getMonthFullName, getWeekOfTheYear, now } from "@/lib/dayjs";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-dayjs.extend(weekOfYear);
 
 const Timebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location);
   const calendarViews = [
     { id: 1, name: "day" },
     { id: 2, name: "week" },
@@ -28,20 +23,24 @@ const Timebar = () => {
     <Group align="center" justify="between" className="h-14 border-b px-5 py-2">
       <Group align="center">
         <Text fw="extrabold" className="text-3xl">
-          {now.format("MMMM")}
+          {getMonthFullName(now)}
         </Text>
         <Text className="text-xl font-bold">{now.format("YYYY")}</Text>
         {location.pathname === "week" && (
           <Text size="xs" className="ml-1 text-slate-500 dark:text-slate-400">
-            Week {now.week()}
+            Week {getWeekOfTheYear(now)}
           </Text>
         )}
       </Group>
       <Group align="center">
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
-            <Button size="xs" variant="neutral" className="space-x-2">
-              <span>{capitilize(calendarView)}</span>
+            <Button
+              size="xs"
+              variant="neutral"
+              className="space-x-2 capitalize"
+            >
+              <span>{location.pathname.substring(1)}</span>
               <ChevronDown size={15} />
             </Button>
           </DropdownMenu.Trigger>

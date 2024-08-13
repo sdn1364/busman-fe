@@ -23,6 +23,17 @@ export const Secondary: Story = {
   },
 };
 
+export const Info: Story = {
+  args: {
+    variant: "info",
+  },
+};
+export const Warning: Story = {
+  args: {
+    variant: "warning",
+  },
+};
+
 export const Neutral: Story = {
   args: {
     variant: "neutral",

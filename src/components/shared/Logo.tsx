@@ -1,5 +1,5 @@
+import useTheme from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
-import { useTheme } from "../context/theme-provider";
 
 const Logo = ({
   size = 40,

@@ -1,11 +1,11 @@
+import { Text } from "@/components/ui";
 import dayjs from "dayjs";
-
 const Times = () => {
   return (
     <div
-      className="times sticky -left-px top-0 z-[30] w-14 border-r bg-red-500/10"
+      className="sticky -left-px top-0 z-20 w-14 border-r bg-background"
       style={{
-        height: "var(--column-height)",
+        height: "var(--single-day-height)",
         marginTop: "calc(-1 * var(--day-header-height))",
       }}
     >
@@ -25,8 +25,8 @@ const Times = () => {
             }}
           >
             <div className="absolute -top-2 right-full mr-1 flex flex-row font-light text-slate-400 dark:text-slate-500">
-              <p className="text-[0.6rem]">{time.format("hh:mm")}</p>
-              <p className="text-[0.55rem]">{time.format("a")}</p>
+              <Text className="text-[0.6rem]">{time.format("hh:mm")}</Text>
+              <Text className="text-[0.55rem]">{time.format("a")}</Text>
             </div>
           </div>
         );

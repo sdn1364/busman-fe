@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";
 
@@ -10,21 +10,23 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
+};
+type ThemeProviderAction = {
+  handleTheme: (theme: Theme) => void;
 };
 
-const initialState: ThemeProviderState = {
+export const ThemeProviderActionContext = createContext<ThemeProviderAction>(
+  {} as ThemeProviderAction,
+);
+
+export const ThemeProviderStateContext = createContext<ThemeProviderState>({
   theme: "system",
-  setTheme: () => null,
-};
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+} as ThemeProviderState);
 
 export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "vite-ui-theme",
-  ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
@@ -48,26 +50,20 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
+  const handleTheme = useCallback(
+    (theme: Theme) => {
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      {children}
-    </ThemeProviderContext.Provider>
+    <ThemeProviderActionContext.Provider value={{ handleTheme }}>
+      <ThemeProviderStateContext.Provider value={{ theme }}>
+        {children}
+      </ThemeProviderStateContext.Provider>
+    </ThemeProviderActionContext.Provider>
   );
 }
-
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
-
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider");
-
-  return context;
-};

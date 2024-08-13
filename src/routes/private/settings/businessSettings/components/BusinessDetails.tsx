@@ -1,22 +1,18 @@
+import { Card, Fieldset } from "@/components/ui";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
 
 const BusinessDetails = () => {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Business details</CardTitle>
-      </CardHeader>
-      <CardContent>asdfasd</CardContent>
-      <CardFooter className="flex justify-between">
+      <Card.Header>
+        <Card.Title>Business details</Card.Title>
+      </Card.Header>
+      <Card.Content>
+        <Fieldset label="danger zone">danger zone</Fieldset>
+      </Card.Content>
+      <Card.Footer className="flex justify-between">
         <Button disabled>Save</Button>
-      </CardFooter>
+      </Card.Footer>
     </Card>
   );
 };
