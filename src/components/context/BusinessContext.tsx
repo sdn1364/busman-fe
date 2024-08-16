@@ -1,14 +1,8 @@
 import useGetBusinesses from "@/hooks/business/useGetBusinesses";
 import { PathConstants } from "@/PathConstants";
-import {
-  createContext,
-  PropsWithChildren,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
-import { useNavigate } from "react-router-dom";
 import { Tables } from "@/types/database.types";
+import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 export const BusinessStateContext = createContext<IBusinessContext>({
   business: null,
 } as IBusinessContext);
@@ -21,16 +15,25 @@ export const BusinessProvider = ({ children }: PropsWithChildren) => {
   const [business, setBusiness] = useState<Tables<"business"> | null>(null);
   const navigate = useNavigate();
   const { data, isPending, isSuccess } = useGetBusinesses();
+  const location = useLocation();
 
-  useLayoutEffect(() => {
-    if (isSuccess && data.length === 0) {
-      navigate(PathConstants.ONBOARDING);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, data]);
+  console.log(data);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data && data.length < 1) {
+      if (!location.state) {
+        navigate(PathConstants.ONBOARDING + "/" + PathConstants.STEP1, {
+          state: PathConstants.ONBOARDING + "/" + PathConstants.STEP1,
+        });
+      } else {
+        navigate(location.state);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  useEffect(() => {
+    if (isSuccess && data.length > 0) {
       data.forEach((business) => {
         business.business_location.forEach((location) => {
           if (location.is_primary) {
@@ -38,7 +41,12 @@ export const BusinessProvider = ({ children }: PropsWithChildren) => {
           }
         });
       });
+      if (location.state) {
+        navigate("/", { state: null });
+      }
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, data]);
 
   return (

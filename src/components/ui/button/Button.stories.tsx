@@ -19,24 +19,42 @@ export const Default: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: "secondary",
+    variant: "default",
+    c: "secondary",
   },
 };
 
 export const Info: Story = {
   args: {
-    variant: "info",
+    variant: "default",
+    c: "info",
   },
 };
 export const Warning: Story = {
   args: {
-    variant: "warning",
+    variant: "default",
+    c: "warning",
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "default",
+    c: "destructive",
+  },
+};
+
+export const Success: Story = {
+  args: {
+    variant: "default",
+    c: "success",
   },
 };
 
 export const Neutral: Story = {
   args: {
-    variant: "neutral",
+    variant: "default",
+    c: "neutral",
   },
 };
 export const Ghost: Story = {
@@ -44,20 +62,15 @@ export const Ghost: Story = {
     variant: "ghost",
   },
 };
-export const Outline: Story = {
+export const OutlinePrimary: Story = {
   args: {
     variant: "outline",
+    c: "primary",
   },
 };
 
 export const Loading: Story = {
   args: {
     loading: true,
-  },
-};
-
-export const Destructive: Story = {
-  args: {
-    variant: "destructive",
   },
 };

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
-import { Button, buttonVariants } from "./button";
+import { Button, buttonVariants } from "./button/button";
 
 const actionButtonVariants = cva(
   "flex items-center justify-center rounded-sm !p-0",

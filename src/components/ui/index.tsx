@@ -1,7 +1,7 @@
 export { ActionButton } from "./actionButton";
 export { Anchor } from "./anchor";
 export { Avatar } from "./avatar";
-export { Button } from "./button";
+export { Button } from "./button/button";
 export { Card } from "./card";
 export { Divider } from "./divider";
 export { Drawer } from "./drawer";
@@ -11,6 +11,7 @@ export { Group } from "./group";
 export { InputField } from "./inputField";
 export { Menubar } from "./menubar";
 export { Page } from "./page";
+export { Sheet } from "./sheet";
 export { Stack } from "./stack";
 export { Tabs } from "./tabs";
 export { Text } from "./text";

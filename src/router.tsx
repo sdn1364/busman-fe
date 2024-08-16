@@ -8,13 +8,19 @@ import {
 import CalendarLayout from "./components/layout/private/calendarLayout/CalendarLayout";
 import { PathConstants } from "./PathConstants";
 import ErrorElement from "./routes/ErrorElement";
-import { BusinessSetting, Step01 } from "./routes/private";
+import {
+  BusinessSetting,
+  Step01,
+  Step02,
+  Step03,
+  Step04,
+} from "./routes/private";
 import Week from "./routes/private/calendar/week/Week";
 import {
   Forget,
   Login,
   ResetPassword,
-  Singup,
+  SingUp,
   Verification,
 } from "./routes/public";
 
@@ -35,7 +41,7 @@ export const router = createBrowserRouter([
           },
           {
             path: PathConstants.REGISTER,
-            element: <Singup />,
+            element: <SingUp />,
           },
           {
             path: PathConstants.VERIFICATION,
@@ -79,15 +85,27 @@ export const router = createBrowserRouter([
               },
             ],
           },
+        ],
+      },
+      {
+        path: PathConstants.ONBOARDING,
+        element: <OnboardingLayout />,
+        children: [
           {
-            path: PathConstants.ONBOARDING,
-            element: <OnboardingLayout />,
-            children: [
-              {
-                path: PathConstants.STEP1,
-                element: <Step01 />,
-              },
-            ],
+            path: PathConstants.STEP1,
+            element: <Step01 />,
+          },
+          {
+            path: PathConstants.STEP2,
+            element: <Step02 />,
+          },
+          {
+            path: PathConstants.STEP3,
+            element: <Step03 />,
+          },
+          {
+            path: PathConstants.STEP4,
+            element: <Step04 />,
           },
         ],
       },

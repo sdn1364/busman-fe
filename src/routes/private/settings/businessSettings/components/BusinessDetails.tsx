@@ -1,5 +1,5 @@
 import { Card, Fieldset } from "@/components/ui";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 
 const BusinessDetails = () => {
   return (

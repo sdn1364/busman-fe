@@ -1,6 +1,6 @@
 import { getBusinesses } from "@/api/services/business";
-import useAuth from "../auth/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../auth/useAuth";
 
 const useGetBusinesses = () => {
   const { user } = useAuth();

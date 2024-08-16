@@ -1,17 +1,37 @@
-import { Card, InputField, TextAreaField, Button } from "@/components/ui";
+import { Onboarding } from "@/components/layout/private/onboardingLayout/components/OnboardingCard";
+import {
+  Button,
+  InputField,
+  Stack,
+  Text,
+  TextAreaField,
+  Title,
+} from "@/components/ui";
+import { PathConstants as path } from "@/PathConstants";
 import WithAuth from "@/routes/WithAuth";
+import { useNavigate } from "react-router-dom";
 
 const Step01 = WithAuth(() => {
+  const navigate = useNavigate();
+
+  const nextPath = path.ONBOARDING + "/" + path.STEP2;
+
+  const addBusiness = () =>
+    navigate(nextPath, {
+      state: nextPath,
+    });
+
   return (
-    <Card className="h-full w-[700px] justify-between">
-      <Card.Header>
-        <Card.Title>Let's Get Started with Your Business Info</Card.Title>
-        <Card.Description>
-          Hi there! First, we need a few details about your business. This will
-          help us set up your profile and make it easy for customers to find you
-        </Card.Description>
-      </Card.Header>
-      <Card.Content>
+    <Onboarding.Card>
+      <Onboarding.Content className="flex flex-col space-y-10">
+        <Stack>
+          <Title order={1}>Let's Get Started with Your Business Info</Title>
+          <Text>
+            Hi there! First, we need a few details about your business. This
+            will help us set up your profile and make it easy for customers to
+            find you
+          </Text>
+        </Stack>
         <InputField
           label="What's your business called?"
           placeholder="Business name"
@@ -22,12 +42,11 @@ const Step01 = WithAuth(() => {
           placeholder="Description"
           type="description"
         />
-      </Card.Content>
-      <Card.Footer className="justify-between">
-        <Button>Continue</Button>
-        <Button>Continue</Button>
-      </Card.Footer>
-    </Card>
+      </Onboarding.Content>
+      <Onboarding.Footer>
+        <Button onClick={addBusiness}>Continue</Button>
+      </Onboarding.Footer>
+    </Onboarding.Card>
   );
 });
 

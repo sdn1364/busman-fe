@@ -51,18 +51,18 @@ const Timebar = () => {
                 className="capitalize"
                 onClick={() => navigate(view.name)}
               >
-                {view.name}
+                {view.name} ``
               </DropdownMenu.Item>
             ))}
           </DropdownMenu.Content>
         </DropdownMenu>
-        <Button size="xs" variant="neutral">
+        <Button size="xs" variant="ghost">
           Today
         </Button>
-        <ActionButton variant="neutral" size="xs">
+        <ActionButton variant="ghost" size="xs">
           <ChevronLeft size={15} />
         </ActionButton>
-        <ActionButton variant="neutral" size="xs">
+        <ActionButton variant="ghost" size="xs">
           <ChevronRight size={15} />
         </ActionButton>
       </Group>

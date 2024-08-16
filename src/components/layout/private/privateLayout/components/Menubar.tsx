@@ -1,29 +1,19 @@
-import {
-  ActionButton,
-  Avatar,
-  Button,
-  Drawer,
-  DropdownMenu,
-  Group,
-  Menubar,
-} from "@/components/ui";
+import { Avatar, Button, DropdownMenu, Group, Menubar } from "@/components/ui";
 
-import Logo from "@/components/shared/Logo";
+import { Logo, ToggleTheme } from "@/components/shared";
+import { Sheet } from "@/components/ui/sheet";
 import UseAuth from "@/hooks/auth/useAuth";
 import useLogout from "@/hooks/auth/useLogout";
 import useBusiness from "@/hooks/business/useBusiness";
 import useGetBusinesses from "@/hooks/business/useGetBusinesses";
-import useTheme from "@/hooks/useTheme";
-import { Bell, ChevronDown, Moon, Sun, X } from "lucide-react";
+import { Bell, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import Menus from "./Menus";
 
 const TopMenubar = () => {
   const { signout } = useLogout();
-  const { handleTheme, theme } = useTheme();
   const { user } = UseAuth();
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
-
   const { data, isSuccess } = useGetBusinesses();
   const { business } = useBusiness();
 
@@ -56,14 +46,7 @@ const TopMenubar = () => {
               <DropdownMenu.Item>Create new business</DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-10 w-10 rounded-none border-r"
-            onClick={() => handleTheme(theme === "light" ? "dark" : "light")}
-          >
-            {theme === "light" ? <Moon size={15} /> : <Sun size={15} />}
-          </Button>
+          <ToggleTheme />
           <Button
             size="sm"
             variant="ghost"
@@ -99,23 +82,9 @@ const TopMenubar = () => {
           </DropdownMenu>
         </Group>
       </Menubar>
-      <Drawer
-        open={notificationOpen}
-        onOpenChange={setNotificationOpen}
-        direction="right"
-      >
-        <Drawer.Content className="bottom-0 left-auto right-0 flex h-full w-[400px] flex-col rounded-none rounded-l-[10px]">
-          <Drawer.Close className="absolute left-2 top-2" asChild>
-            <ActionButton variant="ghost" size="sm">
-              <X size={15} />
-            </ActionButton>
-          </Drawer.Close>
-          <Drawer.Header>
-            <Drawer.Title className="text-center">Notifications</Drawer.Title>
-            <Drawer.Description></Drawer.Description>
-          </Drawer.Header>
-        </Drawer.Content>
-      </Drawer>
+      <Sheet open={notificationOpen} onOpenChange={setNotificationOpen}>
+        <Sheet.Content></Sheet.Content>
+      </Sheet>
     </>
   );
 };
