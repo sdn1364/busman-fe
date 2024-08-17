@@ -7,7 +7,7 @@ interface InputFieldProps {
   label: string;
   type: string;
   error?: FieldError | undefined;
-  placeholder: string;
+  placeholder?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(

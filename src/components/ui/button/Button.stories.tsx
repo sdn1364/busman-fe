@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
+import { Check } from "lucide-react";
 
 type Story = StoryObj<typeof Button>;
 
@@ -14,63 +15,21 @@ const meta: Meta<typeof Button> = {
 export default meta;
 
 export const Default: Story = {
-  args: {},
-};
-
-export const Secondary: Story = {
   args: {
-    variant: "default",
-    c: "secondary",
+    asChild: false,
+    loading: false,
+    variant: "light",
+    c: "default",
   },
 };
 
-export const Info: Story = {
+export const RightSection: Story = {
   args: {
-    variant: "default",
-    c: "info",
+    right: <Check size={15} />,
   },
 };
-export const Warning: Story = {
+export const LeftSection: Story = {
   args: {
-    variant: "default",
-    c: "warning",
-  },
-};
-
-export const Destructive: Story = {
-  args: {
-    variant: "default",
-    c: "destructive",
-  },
-};
-
-export const Success: Story = {
-  args: {
-    variant: "default",
-    c: "success",
-  },
-};
-
-export const Neutral: Story = {
-  args: {
-    variant: "default",
-    c: "neutral",
-  },
-};
-export const Ghost: Story = {
-  args: {
-    variant: "ghost",
-  },
-};
-export const OutlinePrimary: Story = {
-  args: {
-    variant: "outline",
-    c: "primary",
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    loading: true,
+    left: <Check size={15} />,
   },
 };

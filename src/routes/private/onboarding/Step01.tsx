@@ -44,7 +44,9 @@ const Step01 = WithAuth(() => {
         />
       </Onboarding.Content>
       <Onboarding.Footer>
-        <Button onClick={addBusiness}>Continue</Button>
+        <Button c="primary" onClick={addBusiness}>
+          Continue
+        </Button>
       </Onboarding.Footer>
     </Onboarding.Card>
   );

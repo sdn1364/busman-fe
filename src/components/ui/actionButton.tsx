@@ -22,23 +22,38 @@ const actionButtonVariants = cva(
 interface ActionButtonType
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof actionButtonVariants> {
-  variant?:
+  variant:
     | "default"
-    | "destructive"
     | "outline"
+    | "transparent"
+    | "light"
+    | "white"
+    | "ghost"
+    | undefined
+    | null;
+  c?:
+    | "default"
+    | "primary"
     | "secondary"
     | "neutral"
-    | "ghost";
+    | "success"
+    | "info"
+    | "warning"
+    | "destructive";
   className?: string;
   children: ReactNode;
 }
 
 const ActionButton = forwardRef<HTMLButtonElement, ActionButtonType>(
-  ({ className, children, size, variant, ...rest }, ref) => {
+  (
+    { className, children, size, variant = "default", c = "default", ...rest },
+    ref,
+  ) => {
     return (
       <Button
         ref={ref}
         variant={variant}
+        c={c}
         className={cn(
           buttonVariants({ variant }),
           actionButtonVariants({ size }),

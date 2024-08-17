@@ -2,9 +2,13 @@ import type { Preview } from "@storybook/react";
 import "../src/index.css";
 
 import { withThemeByClassName } from "@storybook/addon-themes";
+import { themes } from "@storybook/theming";
 
 const preview: Preview = {
   parameters: {
+    docs: {
+      theme: themes.dark,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -15,14 +19,16 @@ const preview: Preview = {
 
   tags: ["autodocs"],
 
-  decorators: [withThemeByClassName({
+  decorators: [
+    withThemeByClassName({
       themes: {
-          // nameOfTheme: 'classNameForTheme',
-          light: '',
-          dark: 'dark',
+        // nameOfTheme: 'classNameForTheme',
+        light: "",
+        dark: "dark",
       },
-      defaultTheme: 'light',
-  })]
+      defaultTheme: "light",
+    }),
+  ],
 };
 
 export default preview;

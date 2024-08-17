@@ -10,13 +10,74 @@ This the button Component
 
 ## variants
 
-<Button>default</Button>
-<Button c="default" variant="outline">
+<div className="mb-2 space-x-2 rounded-md bg-background p-5">
+
+<Button c="primary">Default</Button>
+<Button c="primary" variant="outline">
   Outline
 </Button>
-<Button c="default" variant="ghost">
+<Button c="primary" variant="light">
+  Light
+</Button>
+<Button c="primary" variant="ghost">
   Ghost
 </Button>
-<Button c="default" variant="link">
+<Button c="primary" variant="transparent">
+  transparent
+</Button>
+<Button c="primary" variant="link">
   link
 </Button>
+<Button c="primary" variant="white">
+  white
+</Button>
+</div>
+
+<div className="dark mb-2 space-x-2 rounded-md bg-background p-5">
+
+<Button c="primary">Default</Button>
+<Button c="primary" variant="outline">
+  Outline
+</Button>
+<Button c="primary" variant="light">
+  Light
+</Button>
+<Button c="primary" variant="ghost">
+  Ghost
+</Button>
+<Button c="primary" variant="transparent">
+  transparent
+</Button>
+<Button c="primary" variant="link">
+  link
+</Button>
+<Button c="primary" variant="white">
+  white
+</Button>
+</div>
+## Full width
+
+<Button fullWidth>Default</Button>
+
+## Colors
+
+<div className="mb-2 space-x-2 rounded-md bg-background p-5">
+  <Button c="default">Default</Button>
+  <Button c="primary">Primary</Button>
+  <Button c="secondary">Secondary</Button>
+  <Button c="neutral">Neutral</Button>
+  <Button c="success">Success</Button>
+  <Button c="info">Info</Button>
+  <Button c="warning">Warning</Button>
+  <Button c="destructive">Destructive</Button>
+</div>
+<div className="dark space-x-2 rounded-md bg-background p-5">
+  <Button c="default">Default</Button>
+  <Button c="primary">Primary</Button>
+  <Button c="secondary">Secondary</Button>
+  <Button c="neutral">Neutral</Button>
+  <Button c="success">Success</Button>
+  <Button c="info">Info</Button>
+  <Button c="warning">Warning</Button>
+  <Button c="destructive">Destructive</Button>
+</div>

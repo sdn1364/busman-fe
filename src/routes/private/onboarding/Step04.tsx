@@ -23,10 +23,12 @@ const Step04 = () => {
         </Stack>
       </Onboarding.Content>
       <Onboarding.Footer>
-        <Button variant="ghost" onClick={goBack}>
+        <Button variant="ghost" c="primary" onClick={goBack}>
           Previous
         </Button>
-        <Button onClick={createBusiness}>Create business</Button>
+        <Button c="primary" onClick={createBusiness}>
+          Create business
+        </Button>
       </Onboarding.Footer>
     </Onboarding.Card>
   );

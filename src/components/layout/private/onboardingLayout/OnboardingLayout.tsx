@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const OnboardingLayout = withAuth(() => {
   return (
     <div className="relative flex h-screen w-screen flex-col items-center p-5">
-      <ToggleTheme className="absolute right-0 top-0 border-none" />
+      <ToggleTheme className="absolute right-0 top-0 z-40 border-none" />
       <Outlet />
     </div>
   );

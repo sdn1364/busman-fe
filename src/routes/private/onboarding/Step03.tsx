@@ -1,41 +1,8 @@
 import { Onboarding } from "@/components/layout/private/onboardingLayout/components/OnboardingCard";
 import { Button, Stack, Text, Title } from "@/components/ui";
-import { cn } from "@/lib/utils";
 import { PathConstants as path } from "@/PathConstants";
-import { AnimatePresence, motion } from "framer-motion";
-import { Check } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const HourSelector = ({ name }: { name: string }) => {
-  const [selected, setSelected] = useState<boolean>(false);
-  return (
-    <Stack align="center">
-      <AnimatePresence>
-        <Button
-          variant={selected ? "default" : "ghost"}
-          onClick={() => setSelected(!selected)}
-        >
-          {selected && (
-            <motion.div
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
-              exit={{ y: 20 }}
-              transition={{
-                transform: { type: "spring", stiffness: 400, damping: 20 },
-              }}
-            >
-              <Check size={15} />
-            </motion.div>
-          )}
-          <span className={cn(selected && "ml-2 transition-[margin]")}>
-            {name}
-          </span>
-        </Button>
-      </AnimatePresence>
-    </Stack>
-  );
-};
+import HourSelector from "./components/HourSelector";
 
 const Step03 = () => {
   const navigate = useNavigate();
@@ -61,21 +28,20 @@ const Step03 = () => {
             you're open.
           </Text>
         </Stack>
-        <div className="grid grid-cols-7">
-          <HourSelector name="Monday" />
-          <HourSelector name="Tuesday" />
-          <HourSelector name="Wednesday" />
-          <HourSelector name="Thursday" />
-          <HourSelector name="Friday" />
-          <HourSelector name="Saturday" />
-          <HourSelector name="Sunday" />
+        <div className="grid grid-cols-7 gap-5">
+          <HourSelector name="monday" />
         </div>
+        <Button className="w-24" variant="ghost">
+          Copy to all
+        </Button>
       </Onboarding.Content>
       <Onboarding.Footer>
-        <Button variant="ghost" onClick={goBack}>
+        <Button variant="ghost" c="primary" onClick={goBack}>
           Previous
         </Button>
-        <Button onClick={addHours}>Continue</Button>
+        <Button c="primary" onClick={addHours}>
+          Continue
+        </Button>
       </Onboarding.Footer>
     </Onboarding.Card>
   );

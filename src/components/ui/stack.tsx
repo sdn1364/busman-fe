@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import { ReactNode } from "react";
+import { forwardRef, HTMLAttributes, ReactNode } from "react";
 import { flexBoxVariants } from "./variants";
 
 const stackVariants = cva("flex flex-col", {
@@ -11,16 +11,24 @@ const stackVariants = cva("flex flex-col", {
     gap: "xs",
   },
 });
-interface StackProps extends VariantProps<typeof stackVariants> {
+interface StackProps
+  extends VariantProps<typeof stackVariants>,
+    HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className?: string;
 }
-const Stack = ({ children, className, justify, align, gap }: StackProps) => {
-  return (
-    <div className={cn(stackVariants({ justify, className, align, gap }))}>
-      {children}
-    </div>
-  );
-};
+const Stack = forwardRef<HTMLDivElement, StackProps>(
+  ({ children, className, justify, align, gap, ...rest }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(stackVariants({ justify, className, align, gap }))}
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
 export { Stack };

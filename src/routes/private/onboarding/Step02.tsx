@@ -44,10 +44,12 @@ const Step02 = () => {
         />
       </Onboarding.Content>
       <Onboarding.Footer>
-        <Button variant="ghost" onClick={goBack}>
+        <Button variant="ghost" c="primary" onClick={goBack}>
           Previous
         </Button>
-        <Button onClick={addLocation}>Continue</Button>
+        <Button c="primary" onClick={addLocation}>
+          Continue
+        </Button>
       </Onboarding.Footer>
     </Onboarding.Card>
   );

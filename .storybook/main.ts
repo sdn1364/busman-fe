@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-themes",
-    "@storybook/addon-designs"
+    "@storybook/addon-designs",
   ],
 
   framework: {

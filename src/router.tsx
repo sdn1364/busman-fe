@@ -7,7 +7,6 @@ import {
 } from "./components/layout";
 import CalendarLayout from "./components/layout/private/calendarLayout/CalendarLayout";
 import { PathConstants } from "./PathConstants";
-import ErrorElement from "./routes/ErrorElement";
 import {
   BusinessSetting,
   Step01,
@@ -29,7 +28,7 @@ export const router = createBrowserRouter([
     id: "root",
     path: "/",
     element: <App />,
-    errorElement: <ErrorElement />,
+    // errorElement: <ErrorElement />,
     children: [
       {
         id: "publicLayout",
