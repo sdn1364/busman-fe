@@ -8,8 +8,9 @@ import {
 import { getMonthFullName, getWeekOfTheYear, now } from "@/lib/dayjs";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import NumberOfDays from "./NumberOfDays";
 
-const Timebar = () => {
+const TimeBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,11 +36,7 @@ const Timebar = () => {
       <Group align="center">
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
-            <Button
-              size="xs"
-              variant="neutral"
-              className="space-x-2 capitalize"
-            >
+            <Button size="xs" variant="ghost" className="space-x-2 capitalize">
               <span>{location.pathname.substring(1)}</span>
               <ChevronDown size={15} />
             </Button>
@@ -51,7 +48,7 @@ const Timebar = () => {
                 className="capitalize"
                 onClick={() => navigate(view.name)}
               >
-                {view.name} ``
+                {view.name}
               </DropdownMenu.Item>
             ))}
           </DropdownMenu.Content>
@@ -65,9 +62,10 @@ const Timebar = () => {
         <ActionButton variant="ghost" size="xs">
           <ChevronRight size={15} />
         </ActionButton>
+        <NumberOfDays />
       </Group>
     </Group>
   );
 };
 
-export default Timebar;
+export default TimeBar;

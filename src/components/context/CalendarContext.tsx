@@ -10,6 +10,7 @@ export const CalendarActionContext = createContext<CalendarActionContextType>(
 
 const CalendarProvider = ({ children }: PropsWithChildren) => {
   const [numberOfDays, setNumberOfDays] = useState<number>(7);
+  const [todayPosition, setTodayPosition] = useState<number | null>(null);
 
   const increaseNumberOfDays = () => {
     setNumberOfDays(numberOfDays < 31 ? numberOfDays + 1 : 31);
@@ -24,11 +25,13 @@ const CalendarProvider = ({ children }: PropsWithChildren) => {
         setNumberOfDays,
         increaseNumberOfDays,
         decreaseNumberOfDays,
+        setTodayPosition,
       }}
     >
       <CalendarContext.Provider
         value={{
           numberOfDays,
+          todayPosition,
         }}
       >
         {children}

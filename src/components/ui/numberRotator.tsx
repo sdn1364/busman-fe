@@ -10,12 +10,14 @@ type NumberRotator = {
   up?: () => void;
   down?: () => void;
   disabled?: boolean;
+  name?: string;
 };
 
 const NumberRotator = ({
   children,
   up,
   down,
+  name,
   disabled = false,
 }: NumberRotator) => {
   return (
@@ -29,6 +31,7 @@ const NumberRotator = ({
       align="center"
       onWheel={(e) => !disabled && (e.deltaY > 0 ? down!() : up!())}
     >
+      <input type="hidden" name={name} />
       <ActionButton
         size="xs"
         variant="outline"

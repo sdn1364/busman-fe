@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 const Step04 = () => {
   const navigate = useNavigate();
 
-  const createBusiness = () => {};
+  const createBusiness = () => {
+    navigate(path.DASHBOARD);
+  };
 
   const goBack = () => {
     navigate(path.ONBOARDING + "/" + path.STEP3);

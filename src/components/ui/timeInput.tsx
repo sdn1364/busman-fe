@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-dropdown-menu";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import NumberRotator from "./numberRotator";
 
 const Actions = {
@@ -46,22 +46,27 @@ const timeReducer = (state: TimeState, action: Action): TimeState => {
       return state;
   }
 };
-
-const TimeInput = ({
-  disabled,
-  label,
-  className,
-}: {
+interface ITimeInput {
   label: string;
   disabled: boolean;
   className?: string;
-}) => {
+  onChange: (t: string) => void;
+}
+
+const TimeInput = ({ disabled, label, className, onChange }: ITimeInput) => {
   const initialState: TimeState = {
     hour: 0,
     minute: 0,
     meridiem: "am",
   };
   const [time, dispatch] = useReducer(timeReducer, initialState);
+
+  useEffect(() => {
+    if (onChange && !disabled) {
+      onChange(time.hour + ":" + time.minute + " " + time.meridiem);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [time]);
 
   return (
     <div className={cn(className, "flex w-full flex-col")}>

@@ -1,8 +1,24 @@
 import { Onboarding } from "@/components/layout/private/onboardingLayout/components/OnboardingCard";
 import { Button, Stack, Text, Title } from "@/components/ui";
 import { PathConstants as path } from "@/PathConstants";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HourSelector from "./components/HourSelector";
+
+interface Hours {
+  from: string;
+  to: string;
+}
+
+interface WeekHours {
+  monday: Hours;
+  tuesday: Hours;
+  wednesday: Hours;
+  thursday: Hours;
+  friday: Hours;
+  saturday: Hours;
+  sunday: Hours;
+}
 
 const Step03 = () => {
   const navigate = useNavigate();
@@ -18,6 +34,32 @@ const Step03 = () => {
     navigate(backPath, { state: backPath });
   };
 
+  const [hours, setHours] = useState({
+    monday: { selected: true, from: "", to: "" },
+    tuesday: { selected: true, from: "", to: "" },
+    wednesday: { selected: true, from: "", to: "" },
+    thursday: { selected: false, from: "", to: "" },
+    friday: { selected: false, from: "", to: "" },
+    saturday: { selected: false, from: "", to: "" },
+    sunday: { selected: false, from: "", to: "" },
+  });
+
+  const handleHoursChange = (
+    day: string,
+    value: { from: string; to: string },
+  ) => {
+    setHours((prevHours) => ({
+      ...prevHours,
+      [day]: value,
+    }));
+  };
+
+  const copyToAll = () => {
+    Object.keys(hours).forEach((day) => {
+      handleHoursChange(day as keyof WeekHours, hours.monday);
+    });
+  };
+
   return (
     <Onboarding.Card>
       <Onboarding.Content className="flex flex-col space-y-10">
@@ -29,9 +71,16 @@ const Step03 = () => {
           </Text>
         </Stack>
         <div className="grid grid-cols-7 gap-5">
-          <HourSelector name="monday" />
+          {Object.keys(hours).map((day) => (
+            <HourSelector
+              key={day}
+              onChange={(e) => handleHoursChange(day, e)}
+              value={hours[day as keyof WeekHours]}
+              name={day}
+            />
+          ))}
         </div>
-        <Button className="w-24" variant="ghost">
+        <Button onClick={copyToAll} className="w-24" variant="ghost">
           Copy to all
         </Button>
       </Onboarding.Content>

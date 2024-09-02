@@ -1,12 +1,12 @@
 import CalendarProvider from "@/components/context/CalendarContext";
 import { Outlet } from "react-router-dom";
-import Timebar from "./components/Timebar";
+import TimeBar from "./components/TimeBar";
 
 const CalendarLayout = () => {
   return (
     <CalendarProvider>
       <div className="overflow flex w-screen flex-col">
-        <Timebar />
+        <TimeBar />
         <Outlet />
       </div>
     </CalendarProvider>

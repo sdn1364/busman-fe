@@ -1,33 +1,58 @@
 import { useCalendar } from "@/hooks";
-import { generateCalendarWithDays, numberOfAllDayInTime } from "@/lib/dayjs";
-import { useEffect, useMemo, useRef } from "react";
+import { numberOfAllDayInTime } from "@/lib/dayjs";
+import dayjs from "dayjs";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 
 const useWeek = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { numberOfDays } = useCalendar();
 
-  const generateCalendar = useMemo(
-    () => generateCalendarWithDays(numberOfDays),
+  const weekCalendarRef = useRef<DayJs[]>([]);
+
+  const widthOfSingleDay = useMemo(
+    () => Math.floor((screen.availWidth - 56) / numberOfDays),
     [numberOfDays],
   );
 
-  const { current: weekCalendar } = useRef<DayJs[]>(generateCalendar);
-  const widthOfSingleDay = screen.availWidth / numberOfDays;
+  const createCalendar = useCallback((numberOfDays: number) => {
+    const days: number[] = [];
+    const MARGIN = 5;
 
-  const widthOfwholeCalendar = Math.floor(
+    const startOfThisWeek = dayjs().startOf("week");
+
+    // there should be a way to position each day
+    // also there should be a way to add events
+    const addDay = (i: number) => {
+      return days.push(startOfThisWeek.add(i, "day").valueOf());
+    };
+
+    for (let i = -MARGIN; i < 0; i++) {
+      addDay(i);
+    }
+    for (let i = 0; i < numberOfDays + MARGIN; i++) {
+      addDay(i);
+    }
+
+    return days;
+  }, []);
+
+  useLayoutEffect(() => {
+    weekCalendarRef.current = createCalendar(numberOfDays);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numberOfDays]);
+
+  const widthOfWholeCalendar = Math.floor(
     widthOfSingleDay * numberOfAllDayInTime,
   );
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container && weekCalendar.length > 0) {
-      container.scrollLeft = weekCalendar[0].position + 56;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log();
 
-  return { weekCalendar, widthOfwholeCalendar, containerRef };
+  return {
+    weekCalendar: weekCalendarRef.current,
+    widthOfWholeCalendar,
+    containerRef,
+  };
 };
 
 export default useWeek;
