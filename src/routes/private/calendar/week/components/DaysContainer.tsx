@@ -1,14 +1,11 @@
 import { PropsWithChildren } from "react";
 
-const DaysContainer = ({
-  children,
-  width,
-}: PropsWithChildren<{ width: number }>) => {
+const DaysContainer = ({ children }: PropsWithChildren) => {
   return (
     <div
       className="relative block h-full w-full"
       style={{
-        width: width,
+        width: "var(--full-calendar-width)",
       }}
     >
       {children}

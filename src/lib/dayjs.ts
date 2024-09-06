@@ -44,7 +44,7 @@ export const getWeekOfTheYear = (day: DayJs) => day.week();
 export const getDayNumber = (day: DayJs) => day.format("D");
 export const getDayShortName = (day: DayJs) => day.format("ddd");
 export const getDayFullName = (day: DayJs) => day.format("dddd");
-export const getDiffFromStart = (day: DayJs) =>
+export const getDiffFromStart = (day: DayJs): number =>
   dayjs.duration(day.diff(startOfTime)).asDays();
 
 //calendar generation functions

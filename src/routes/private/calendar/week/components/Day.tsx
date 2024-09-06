@@ -24,7 +24,7 @@ const Day = ({ day, style }: Props) => {
     <div
       ref={setNodeRef}
       className={cn(
-        "absolute top-0 block border-r",
+        "absolute top-0 flex border-r",
         (dayObj.day() !== 6 || dayObj.day() !== 0) && "bg-background",
         (dayObj.day() === 6 || dayObj.day() === 0) &&
           "bg-slate-100 dark:bg-slate-900",

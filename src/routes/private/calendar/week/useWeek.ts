@@ -1,56 +1,49 @@
 import { useCalendar } from "@/hooks";
-import { numberOfAllDayInTime } from "@/lib/dayjs";
+import { getDiffFromStart, numberOfAllDayInTime } from "@/lib/dayjs";
 import dayjs from "dayjs";
-import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 const useWeek = () => {
+  const days: { value: number; position: number }[] = [];
+  const MARGIN = 5;
+
+  const startOfThisWeek = dayjs().startOf("week");
+
+  let basePosition = Math.floor(getDiffFromStart(startOfThisWeek) - MARGIN);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { numberOfDays } = useCalendar();
 
-  const weekCalendarRef = useRef<DayJs[]>([]);
+  const [oldPosition] = useState(basePosition);
 
-  const widthOfSingleDay = useMemo(
-    () => Math.floor((screen.availWidth - 56) / numberOfDays),
-    [numberOfDays],
-  );
+  const createCalendar = (numberOfDays: number) => {
+    for (let i = -MARGIN; i < numberOfDays + MARGIN; i++) {
+      days.push({
+        value: startOfThisWeek.add(i, "day").valueOf(),
+        position: basePosition,
+      });
 
-  const createCalendar = useCallback((numberOfDays: number) => {
-    const days: number[] = [];
-    const MARGIN = 5;
-
-    const startOfThisWeek = dayjs().startOf("week");
-
-    // there should be a way to position each day
-    // also there should be a way to add events
-    const addDay = (i: number) => {
-      return days.push(startOfThisWeek.add(i, "day").valueOf());
-    };
-
-    for (let i = -MARGIN; i < 0; i++) {
-      addDay(i);
-    }
-    for (let i = 0; i < numberOfDays + MARGIN; i++) {
-      addDay(i);
+      basePosition++;
     }
 
     return days;
-  }, []);
+  };
+
+  const weekCalendarRef = useRef<DayJs[]>(createCalendar(numberOfDays));
+
+  const SINGLE_DAY_WIDTH = (screen.availWidth - 56) / numberOfDays;
 
   useLayoutEffect(() => {
-    weekCalendarRef.current = createCalendar(numberOfDays);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [numberOfDays]);
-
-  const widthOfWholeCalendar = Math.floor(
-    widthOfSingleDay * numberOfAllDayInTime,
-  );
-
-  console.log();
+    if (containerRef.current) {
+      containerRef.current.scrollLeft =
+        (oldPosition + MARGIN) * SINGLE_DAY_WIDTH - 56;
+    }
+  }, [oldPosition, numberOfDays, SINGLE_DAY_WIDTH]);
 
   return {
     weekCalendar: weekCalendarRef.current,
-    widthOfWholeCalendar,
+    numberOfAllDayInTime,
     containerRef,
   };
 };
