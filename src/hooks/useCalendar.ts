@@ -1,7 +1,7 @@
 import {
   CalendarActionContext,
   CalendarContext,
-} from "@/components/context/CalendarContext";
+} from "@/state/context/CalendarContext";
 import { useContext } from "react";
 
 const useCalendar = () => {

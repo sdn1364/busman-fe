@@ -1,12 +1,12 @@
 import {
-  ThemeProviderActionContext,
-  ThemeProviderStateContext,
-} from "@/components/context/theme-provider";
+  ThemeActionContext,
+  ThemeStateContext,
+} from "@/state/context/ThemeContext";
 import { useContext } from "react";
 
 const useTheme = () => {
-  const stateContext = useContext(ThemeProviderStateContext);
-  const actionContext = useContext(ThemeProviderActionContext);
+  const stateContext = useContext(ThemeStateContext);
+  const actionContext = useContext(ThemeActionContext);
 
   return { ...stateContext, ...actionContext };
 };

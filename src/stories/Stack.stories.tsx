@@ -1,4 +1,4 @@
-import { Stack } from "@/components/ui";
+import { Stack } from "@/resources/components/ui";
 import type { Meta, StoryObj } from "@storybook/react";
 import Box from "./Box";
 type Story = StoryObj<typeof Stack>;

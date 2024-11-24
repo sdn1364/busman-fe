@@ -1,4 +1,4 @@
-import { ActionButton } from "@/components/ui";
+import { ActionButton } from "@/resources/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
 import { Plus } from "lucide-react";
 

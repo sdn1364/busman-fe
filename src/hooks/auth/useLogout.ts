@@ -1,5 +1,5 @@
+import { logout } from "@/models/services/auth";
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "@/api/services/auth";
 
 const useLogout = () => {
   const { mutate: signout } = useMutation({

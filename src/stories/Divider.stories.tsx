@@ -1,4 +1,4 @@
-import { Divider } from "@/components/ui";
+import { Divider } from "@/resources/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof Divider>;
@@ -13,6 +13,6 @@ export default meta;
 export const Default: Story = {
   args: {
     size: "xs",
-    variant: "dashed"
+    variant: "dashed",
   },
 };

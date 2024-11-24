@@ -1,4 +1,4 @@
-import { Group } from "@/components/ui";
+import { Group } from "@/resources/components/ui";
 import type { Meta, StoryObj } from "@storybook/react";
 import Box from "./Box";
 

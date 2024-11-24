@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Title } from "@/components/ui";
+import { Title } from "@/resources/components/ui";
 
 type Story = StoryObj<typeof Title>;
 

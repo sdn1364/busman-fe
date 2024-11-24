@@ -1,4 +1,4 @@
-import { resetPassword } from "@/api/services/auth";
+import { resetPassword } from "@/models/services/auth";
 import { useMutation } from "@tanstack/react-query";
 
 const useResetPassword = () => {

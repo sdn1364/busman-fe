@@ -1,4 +1,4 @@
-import { Anchor } from "@/components/ui";
+import { Anchor } from "@/resources/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof Anchor>;

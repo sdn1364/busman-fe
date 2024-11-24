@@ -1,12 +1,12 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./App";
+import { PathConstants } from "./PathConstants";
 import {
   OnboardingLayout,
   PrivateLayout,
   PublicLayout,
-} from "./components/layout";
-import CalendarLayout from "./components/layout/private/calendarLayout/CalendarLayout";
-import { PathConstants } from "./PathConstants";
+} from "./resources/components/layout";
+import CalendarLayout from "./resources/components/layout/private/calendarLayout/CalendarLayout";
 import {
   BusinessSetting,
   Step01,

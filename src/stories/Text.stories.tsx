@@ -1,4 +1,4 @@
-import { Text } from "@/components/ui";
+import { Text } from "@/resources/components/ui";
 import type { Meta, StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof Text>;

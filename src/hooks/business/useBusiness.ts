@@ -1,7 +1,7 @@
 import {
   BusinessActionContext,
   BusinessStateContext,
-} from "@/components/context/BusinessContext";
+} from "@/state/context/BusinessContext";
 import { useContext } from "react";
 
 const useBusiness = () => {

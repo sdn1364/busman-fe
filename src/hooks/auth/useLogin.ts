@@ -1,19 +1,19 @@
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/auth/useAuth";
-import { login } from "@/api/services/auth";
+import { login } from "@/models/services/auth";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 const useLogin = () => {
-  const { setAuth } = useAuth();
+  const { setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: login,
     onSuccess: (res) => {
       if (res.session) {
-        setAuth(true);
+        setIsAuthenticated(true);
       }
-      return navigate("/");
+      return navigate({ to: "/" });
     },
     onError: (err) => err,
   });

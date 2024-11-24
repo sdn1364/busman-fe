@@ -1,4 +1,4 @@
-import { Fieldset } from "@/components/ui";
+import { Fieldset } from "@/resources/components/ui";
 import { Meta, StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof Fieldset>;
