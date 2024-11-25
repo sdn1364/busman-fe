@@ -11,14 +11,25 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/Login'
+import { Route as LoginImport } from './routes/login'
+import { Route as PrivateImport } from './routes/_private'
 import { Route as IndexImport } from './routes/index'
+import { Route as PrivateCalendarWeekImport } from './routes/_private/calendar/week'
+import { Route as PrivateOnboardingSteps04Import } from './routes/_private/onboarding/steps/04'
+import { Route as PrivateOnboardingSteps03Import } from './routes/_private/onboarding/steps/03'
+import { Route as PrivateOnboardingSteps02Import } from './routes/_private/onboarding/steps/02'
+import { Route as PrivateOnboardingSteps01Import } from './routes/_private/onboarding/steps/01'
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
-  id: '/Login',
-  path: '/Login',
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PrivateRoute = PrivateImport.update({
+  id: '/_private',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -26,6 +37,36 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const PrivateCalendarWeekRoute = PrivateCalendarWeekImport.update({
+  id: '/calendar/week',
+  path: '/calendar/week',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateOnboardingSteps04Route = PrivateOnboardingSteps04Import.update({
+  id: '/onboarding/steps/04',
+  path: '/onboarding/steps/04',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateOnboardingSteps03Route = PrivateOnboardingSteps03Import.update({
+  id: '/onboarding/steps/03',
+  path: '/onboarding/steps/03',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateOnboardingSteps02Route = PrivateOnboardingSteps02Import.update({
+  id: '/onboarding/steps/02',
+  path: '/onboarding/steps/02',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateOnboardingSteps01Route = PrivateOnboardingSteps01Import.update({
+  id: '/onboarding/steps/01',
+  path: '/onboarding/steps/01',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -39,50 +80,156 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/Login': {
-      id: '/Login'
-      path: '/Login'
-      fullPath: '/Login'
+    '/_private': {
+      id: '/_private'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PrivateImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
+    }
+    '/_private/calendar/week': {
+      id: '/_private/calendar/week'
+      path: '/calendar/week'
+      fullPath: '/calendar/week'
+      preLoaderRoute: typeof PrivateCalendarWeekImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/onboarding/steps/01': {
+      id: '/_private/onboarding/steps/01'
+      path: '/onboarding/steps/01'
+      fullPath: '/onboarding/steps/01'
+      preLoaderRoute: typeof PrivateOnboardingSteps01Import
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/onboarding/steps/02': {
+      id: '/_private/onboarding/steps/02'
+      path: '/onboarding/steps/02'
+      fullPath: '/onboarding/steps/02'
+      preLoaderRoute: typeof PrivateOnboardingSteps02Import
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/onboarding/steps/03': {
+      id: '/_private/onboarding/steps/03'
+      path: '/onboarding/steps/03'
+      fullPath: '/onboarding/steps/03'
+      preLoaderRoute: typeof PrivateOnboardingSteps03Import
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/onboarding/steps/04': {
+      id: '/_private/onboarding/steps/04'
+      path: '/onboarding/steps/04'
+      fullPath: '/onboarding/steps/04'
+      preLoaderRoute: typeof PrivateOnboardingSteps04Import
+      parentRoute: typeof PrivateImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface PrivateRouteChildren {
+  PrivateCalendarWeekRoute: typeof PrivateCalendarWeekRoute
+  PrivateOnboardingSteps01Route: typeof PrivateOnboardingSteps01Route
+  PrivateOnboardingSteps02Route: typeof PrivateOnboardingSteps02Route
+  PrivateOnboardingSteps03Route: typeof PrivateOnboardingSteps03Route
+  PrivateOnboardingSteps04Route: typeof PrivateOnboardingSteps04Route
+}
+
+const PrivateRouteChildren: PrivateRouteChildren = {
+  PrivateCalendarWeekRoute: PrivateCalendarWeekRoute,
+  PrivateOnboardingSteps01Route: PrivateOnboardingSteps01Route,
+  PrivateOnboardingSteps02Route: PrivateOnboardingSteps02Route,
+  PrivateOnboardingSteps03Route: PrivateOnboardingSteps03Route,
+  PrivateOnboardingSteps04Route: PrivateOnboardingSteps04Route,
+}
+
+const PrivateRouteWithChildren =
+  PrivateRoute._addFileChildren(PrivateRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/Login': typeof LoginRoute
+  '': typeof PrivateRouteWithChildren
+  '/login': typeof LoginRoute
+  '/calendar/week': typeof PrivateCalendarWeekRoute
+  '/onboarding/steps/01': typeof PrivateOnboardingSteps01Route
+  '/onboarding/steps/02': typeof PrivateOnboardingSteps02Route
+  '/onboarding/steps/03': typeof PrivateOnboardingSteps03Route
+  '/onboarding/steps/04': typeof PrivateOnboardingSteps04Route
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/Login': typeof LoginRoute
+  '': typeof PrivateRouteWithChildren
+  '/login': typeof LoginRoute
+  '/calendar/week': typeof PrivateCalendarWeekRoute
+  '/onboarding/steps/01': typeof PrivateOnboardingSteps01Route
+  '/onboarding/steps/02': typeof PrivateOnboardingSteps02Route
+  '/onboarding/steps/03': typeof PrivateOnboardingSteps03Route
+  '/onboarding/steps/04': typeof PrivateOnboardingSteps04Route
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/Login': typeof LoginRoute
+  '/_private': typeof PrivateRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_private/calendar/week': typeof PrivateCalendarWeekRoute
+  '/_private/onboarding/steps/01': typeof PrivateOnboardingSteps01Route
+  '/_private/onboarding/steps/02': typeof PrivateOnboardingSteps02Route
+  '/_private/onboarding/steps/03': typeof PrivateOnboardingSteps03Route
+  '/_private/onboarding/steps/04': typeof PrivateOnboardingSteps04Route
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/Login'
+  fullPaths:
+    | '/'
+    | ''
+    | '/login'
+    | '/calendar/week'
+    | '/onboarding/steps/01'
+    | '/onboarding/steps/02'
+    | '/onboarding/steps/03'
+    | '/onboarding/steps/04'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/Login'
-  id: '__root__' | '/' | '/Login'
+  to:
+    | '/'
+    | ''
+    | '/login'
+    | '/calendar/week'
+    | '/onboarding/steps/01'
+    | '/onboarding/steps/02'
+    | '/onboarding/steps/03'
+    | '/onboarding/steps/04'
+  id:
+    | '__root__'
+    | '/'
+    | '/_private'
+    | '/login'
+    | '/_private/calendar/week'
+    | '/_private/onboarding/steps/01'
+    | '/_private/onboarding/steps/02'
+    | '/_private/onboarding/steps/03'
+    | '/_private/onboarding/steps/04'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrivateRoute: typeof PrivateRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrivateRoute: PrivateRouteWithChildren,
   LoginRoute: LoginRoute,
 }
 
@@ -97,14 +244,45 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/Login"
+        "/_private",
+        "/login"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/Login": {
-      "filePath": "Login.tsx"
+    "/_private": {
+      "filePath": "_private.tsx",
+      "children": [
+        "/_private/calendar/week",
+        "/_private/onboarding/steps/01",
+        "/_private/onboarding/steps/02",
+        "/_private/onboarding/steps/03",
+        "/_private/onboarding/steps/04"
+      ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/_private/calendar/week": {
+      "filePath": "_private/calendar/week.tsx",
+      "parent": "/_private"
+    },
+    "/_private/onboarding/steps/01": {
+      "filePath": "_private/onboarding/steps/01.tsx",
+      "parent": "/_private"
+    },
+    "/_private/onboarding/steps/02": {
+      "filePath": "_private/onboarding/steps/02.tsx",
+      "parent": "/_private"
+    },
+    "/_private/onboarding/steps/03": {
+      "filePath": "_private/onboarding/steps/03.tsx",
+      "parent": "/_private"
+    },
+    "/_private/onboarding/steps/04": {
+      "filePath": "_private/onboarding/steps/04.tsx",
+      "parent": "/_private"
     }
   }
 }

@@ -1,19 +1,17 @@
 import { supabase } from "@/models/api/supabase";
 import { PathConstants } from "@/PathConstants";
+import { router } from "@/router";
 import {
   AuthActionContext,
   AuthStateContext,
 } from "@/state/context/AuthContext";
 import { User } from "@supabase/supabase-js";
-import { useNavigate } from "@tanstack/react-router";
 import { PropsWithChildren, useEffect, useLayoutEffect, useState } from "react";
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [Loading, setLoading] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     setLoading(true);
@@ -37,11 +35,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       } else if (event === "SIGNED_OUT") {
         setUser(null);
         setIsAuthenticated(false);
-      }
-
-      if (event == "PASSWORD_RECOVERY") {
+      } else if (event == "PASSWORD_RECOVERY") {
         console.log(session?.user.email);
-        navigate({ to: PathConstants.RESETPASSWORD });
+        router.history?.push(PathConstants.RESETPASSWORD);
       }
     });
 

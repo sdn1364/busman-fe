@@ -1,34 +1,30 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { useAuth } from "./hooks";
-import { routeTree } from "./routeTree.gen";
+import { queryClient } from "./QueryClient";
+import { router } from "./router";
 import AllProviders from "./state/provider/AllProviders";
 
-const queryClient = new QueryClient();
-
-const router = createRouter({
-  routeTree,
-  context: {
-    queryClient,
-  },
-  defaultPreload: "intent",
-  defaultPreloadStaleTime: 0,
-});
-
-function InnerApp() {
-  const auth = useAuth();
-  return <RouterProvider router={router} context={{ auth }} />;
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
 }
 
 function App() {
+  const auth = useAuth();
+  console.log("auth", auth);
   return (
-    <AllProviders>
-      <Suspense fallback={<div>loading...</div>}>
-        <InnerApp />
-      </Suspense>
-    </AllProviders>
+    <Suspense fallback={<div>loading...</div>}>
+      <QueryClientProvider client={queryClient}>
+        <AllProviders>
+          <RouterProvider router={router} context={{ auth }} />
+        </AllProviders>
+      </QueryClientProvider>
+    </Suspense>
   );
+  return;
 }
 
 export default App;

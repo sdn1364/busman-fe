@@ -8,18 +8,15 @@ import {
   TextAreaField,
   Title,
 } from "@/resources/components/ui";
-import WithAuth from "@/routes/WithAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 
-const Step01 = WithAuth(() => {
+const Step01 = () => {
   const navigate = useNavigate();
 
   const nextPath = path.ONBOARDING + "/" + path.STEP2;
 
   const addBusiness = () =>
-    navigate(nextPath, {
-      state: nextPath,
-    });
+    navigate({ to: nextPath, params: { state: nextPath } });
 
   return (
     <Onboarding.Card>
@@ -50,6 +47,6 @@ const Step01 = WithAuth(() => {
       </Onboarding.Footer>
     </Onboarding.Card>
   );
-});
+};
 
 export default Step01;

@@ -1,45 +1,52 @@
 import { useGetBusinesses } from "@/hooks";
+import { PathConstants } from "@/PathConstants";
+import { router } from "@/router";
 import {
   BusinessActionContext,
   BusinessStateContext,
 } from "@/state/context/BusinessContext";
 import { Tables } from "@/types/database.types";
-import { PropsWithChildren, useState } from "react";
+import { redirect } from "@tanstack/react-router";
+import { PropsWithChildren, useEffect, useState } from "react";
 
 const BusinessProvider = ({ children }: PropsWithChildren) => {
   const [business, setBusiness] = useState<Tables<"business"> | null>(null);
   const { data, isPending, isSuccess } = useGetBusinesses();
 
-  // useEffect(() => {
-  //   if (data && data.length < 1) {
-  //     if (!location.state) {
-  //       navigate(PathConstants.ONBOARDING + "/" + PathConstants.STEP1, {
-  //         state: PathConstants.ONBOARDING + "/" + PathConstants.STEP1,
-  //       });
-  //     } else {
-  //       navigate(location.state);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [data]);
+  console.log(router);
 
-  // useEffect(() => {
-  //   if (isSuccess && data.length > 0) {
-  //     data.forEach((business) => {
-  //       business.business_location.forEach((location) => {
-  //         if (location.is_primary) {
-  //           setBusiness(business);
-  //         }
-  //       });
-  //     });
-  //     if (location.state) {
-  //       navigate("/", { state: null });
-  //     }
-  //   }
+  useEffect(() => {
+    if (data && data.length < 1) {
+      if (!router.state) {
+        throw redirect({
+          to: PathConstants.ONBOARDING + "/" + PathConstants.STEP1,
+          // state: {
+          //   prevPath: PathConstants.ONBOARDING + "/" + PathConstants.STEP1,
+          // },
+        });
+      } else {
+        // throw red irect({ to: router.params.state as string });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isSuccess, data]);
+  useEffect(() => {
+    if (isSuccess && data.length > 0) {
+      data.forEach((business) => {
+        business.business_location.forEach((location) => {
+          if (location.is_primary) {
+            setBusiness(business);
+          }
+        });
+      });
+      if (router.state) {
+        router.history.push("/", { state: null });
+      }
+    }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, data]);
   return (
     <BusinessActionContext.Provider value={{ setBusiness }}>
       <BusinessStateContext.Provider

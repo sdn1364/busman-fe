@@ -13,7 +13,7 @@ const useLogin = () => {
       if (res.session) {
         setIsAuthenticated(true);
       }
-      return navigate({ to: "/" });
+      return navigate({ to: "/calendar/week" });
     },
     onError: (err) => err,
   });

@@ -4,6 +4,8 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
+  auth: IAuthContext;
+  business: IBusinessContext;
 }>()({
   component: () => (
     <>

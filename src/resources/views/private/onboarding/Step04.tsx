@@ -1,16 +1,17 @@
 import { PathConstants as path } from "@/PathConstants";
 import { Onboarding } from "@/resources/components/layout/private/onboardingLayout/components/OnboardingCard";
 import { Button, Stack, Text, Title } from "@/resources/components/ui";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
+
 const Step04 = () => {
   const navigate = useNavigate();
 
   const createBusiness = () => {
-    navigate(path.DASHBOARD);
+    navigate({ to: path.DASHBOARD });
   };
 
   const goBack = () => {
-    navigate(path.ONBOARDING + "/" + path.STEP3);
+    navigate({ to: path.ONBOARDING + "/" + path.STEP3 });
   };
 
   return (

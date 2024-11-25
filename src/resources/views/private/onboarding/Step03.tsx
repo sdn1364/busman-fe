@@ -1,8 +1,8 @@
 import { PathConstants as path } from "@/PathConstants";
 import { Onboarding } from "@/resources/components/layout/private/onboardingLayout/components/OnboardingCard";
 import { Button, Stack, Text, Title } from "@/resources/components/ui";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import HourSelector from "./components/HourSelector";
 
 interface Hours {
@@ -27,11 +27,11 @@ const Step03 = () => {
   const backPath = path.ONBOARDING + "/" + path.STEP2;
 
   const addHours = () => {
-    navigate(nextPath, { state: nextPath });
+    navigate({ to: nextPath, params: { state: nextPath } });
   };
 
   const goBack = () => {
-    navigate(backPath, { state: backPath });
+    navigate({ to: backPath, params: { state: backPath } });
   };
 
   const [hours, setHours] = useState({

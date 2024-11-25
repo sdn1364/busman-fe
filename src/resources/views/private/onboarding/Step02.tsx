@@ -8,7 +8,8 @@ import {
   TextAreaField,
   Title,
 } from "@/resources/components/ui";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
+
 const Step02 = () => {
   const navigate = useNavigate();
 
@@ -16,12 +17,13 @@ const Step02 = () => {
   const backPath = path.ONBOARDING + "/" + path.STEP1;
 
   const addLocation = () => {
-    navigate(nextPath, { state: nextPath });
+    navigate({ to: nextPath, params: { state: nextPath } });
   };
 
   const goBack = () => {
-    navigate(backPath, { state: backPath });
+    navigate({ to: backPath, params: { state: backPath } });
   };
+
   return (
     <Onboarding.Card>
       <Onboarding.Content className="flex flex-col space-y-10">
